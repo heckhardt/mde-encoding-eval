@@ -4,12 +4,12 @@ import io.github.sekassel.moea.model.cra.Class;
 import io.github.sekassel.moea.model.cra.*;
 import io.github.sekassel.moea.operator.RandomMutation;
 import io.github.sekassel.moea.operator.cra.*;
+import io.github.sekassel.moea.problem.TimingProblem;
 import io.github.sekassel.moea.variable.ClassModelVariable;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.moeaframework.algorithm.NSGAII;
 import org.moeaframework.core.Constraint;
 import org.moeaframework.core.Solution;
-import org.moeaframework.problem.TimingProblem;
 
 import java.util.HashMap;
 import java.util.LinkedList;

@@ -1,6 +1,7 @@
 package io.github.sekassel.moea;
 
 import io.github.sekassel.moea.operator.RandomMutation;
+import io.github.sekassel.moea.problem.TimingProblem;
 import io.github.sekassel.moea.store.DataStore;
 import io.github.sekassel.moea.store.NOPDataStore;
 import org.eclipse.emf.common.util.URI;
@@ -8,7 +9,6 @@ import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.moeaframework.algorithm.AbstractEvolutionaryAlgorithm;
 import org.moeaframework.core.TerminationCondition;
-import org.moeaframework.problem.TimingProblem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -107,7 +107,7 @@ public class Runner {
                 final long stepDuration = System.nanoTime() - stepStart;
 
                 dataStore.saveResult(runId, i, algorithm.getResult());
-                dataStore.saveStats(runId, i, stepDuration, timingProblem.getNanoseconds(),
+                dataStore.saveStats(runId, i, stepDuration, timingProblem.getEvaluateDuration(),
                         randomMutation.getCopyDuration(), randomMutation.getMatchDuration(),
                         randomMutation.getMutateDuration(), shouldTerminateDuration);
                 timingProblem.clear();

@@ -4,6 +4,8 @@ import io.github.sekassel.moea.util.ConfigUtil;
 import org.moeaframework.algorithm.AbstractEvolutionaryAlgorithm;
 import org.moeaframework.core.NondominatedPopulation;
 import org.moeaframework.core.Solution;
+import org.moeaframework.core.configuration.Configurable;
+import org.moeaframework.util.TypedProperties;
 import org.postgresql.PGConnection;
 
 import javax.sql.DataSource;
@@ -34,7 +36,11 @@ public class PGDataStore implements DataStore {
             ps.setString(2, instance);
             ps.setString(3, representation);
             ps.setString(4, algorithm.getClass().getSimpleName());
-            ps.setString(5, ConfigUtil.toJson(algorithm.getConfiguration()));
+            final TypedProperties configuration = algorithm.getConfiguration();
+            if (algorithm.getProblem() instanceof Configurable configurable) {
+                configuration.addAll(configurable.getConfiguration());
+            }
+            ps.setString(5, ConfigUtil.toJson(configuration));
             try (final ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1);

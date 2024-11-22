@@ -5,19 +5,25 @@ import io.github.sekassel.moea.model.knapsack.Knapsack;
 import io.github.sekassel.moea.model.knapsack.KnapsackModel;
 import io.github.sekassel.moea.operator.RandomMutation;
 import io.github.sekassel.moea.operator.knapsack.*;
+import io.github.sekassel.moea.problem.TimingProblem;
 import io.github.sekassel.moea.variable.KnapsackModelVariable;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.moeaframework.algorithm.AbstractEvolutionaryAlgorithm;
 import org.moeaframework.algorithm.NSGAII;
 import org.moeaframework.core.Constraint;
 import org.moeaframework.core.Solution;
-import org.moeaframework.problem.TimingProblem;
+import org.moeaframework.core.configuration.Configurable;
+import org.moeaframework.core.configuration.Property;
 
 import java.util.List;
 
-public class KnapsackGraph extends KnapsackProblem {
-    public KnapsackGraph(KnapsackModel model) {
+public class KnapsackGraph extends KnapsackProblem implements Configurable {
+    private double fillRatio;
+
+    public KnapsackGraph(KnapsackModel model, double fillRatio) {
         super(model, 1, model.getKnapsacks().size(), model.getKnapsacks().size());
+        this.fillRatio = fillRatio;
     }
 
     @Override
@@ -42,12 +48,14 @@ public class KnapsackGraph extends KnapsackProblem {
     @Override
     public Solution newSolution() {
         final Solution solution = new Solution(numberOfVariables, numberOfObjectives, numberOfConstraints);
-        solution.setVariable(0, new KnapsackModelVariable(EcoreUtil.copy(model)));
+        solution.setVariable(0, new KnapsackModelVariable(EcoreUtil.copy(model), fillRatio));
         return solution;
     }
 
-    public static NSGAII createAlgorithm(int run, KnapsackModel model) {
-        final NSGAII nsgaii = new NSGAII(new TimingProblem(new KnapsackGraph(model)));
+    public static AbstractEvolutionaryAlgorithm createAlgorithm(int run, KnapsackModel model) {
+        final int steps = 10;
+        final double fillRatio = (run % (steps + 1)) / (double) steps;
+        final NSGAII nsgaii = new NSGAII(new TimingProblem(new KnapsackGraph(model, fillRatio)));
         final List<KnapsackModelMutation> operators = List.of(
                 new ReplaceItem(),
                 new MoveItem(),
@@ -58,5 +66,14 @@ public class KnapsackGraph extends KnapsackProblem {
         nsgaii.setVariation(variation);
         nsgaii.setInitialPopulationSize((model.getItems().size() / 250 + model.getKnapsacks().size()) * 50);
         return nsgaii;
+    }
+
+    public double getFillRatio() {
+        return fillRatio;
+    }
+
+    @Property("fillRatio")
+    public void setFillRatio(double fillRatio) {
+        this.fillRatio = fillRatio;
     }
 }

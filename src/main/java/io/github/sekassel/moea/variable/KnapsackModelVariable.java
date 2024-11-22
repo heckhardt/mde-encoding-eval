@@ -10,9 +10,15 @@ import org.moeaframework.core.Variable;
 
 public class KnapsackModelVariable implements Variable {
     private final KnapsackModel model;
+    private final double probability;
+
+    public KnapsackModelVariable(KnapsackModel model, double probability) {
+        this.model = model;
+        this.probability = probability;
+    }
 
     public KnapsackModelVariable(KnapsackModel model) {
-        this.model = model;
+        this(model, (double) model.getKnapsacks().size() / (model.getKnapsacks().size() + 1));
     }
 
     @Override
@@ -25,8 +31,6 @@ public class KnapsackModelVariable implements Variable {
         for (Knapsack knapsack : model.getKnapsacks()) {
             knapsack.getContains().clear();
         }
-        final double n = model.getKnapsacks().size();
-        final double probability = n / (n + 1);
         for (final Item item : model.getItems()) {
             if (PRNG.nextDouble() < probability) {
                 item.setIsContainedBy(PRNG.nextItem(model.getKnapsacks()));

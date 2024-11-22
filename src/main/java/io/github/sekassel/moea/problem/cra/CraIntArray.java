@@ -7,11 +7,11 @@ import io.github.sekassel.moea.model.cra.Method;
 import io.github.sekassel.moea.operator.Operator;
 import io.github.sekassel.moea.operator.RandomMutation;
 import io.github.sekassel.moea.operator.intarray.RandomSet;
+import io.github.sekassel.moea.problem.TimingProblem;
 import io.github.sekassel.moea.variable.IntegerArray;
 import org.moeaframework.algorithm.NSGAII;
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.Variation;
-import org.moeaframework.problem.TimingProblem;
 
 import java.util.HashSet;
 import java.util.List;
