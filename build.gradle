@@ -1,0 +1,33 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.gradleup.shadow' version '8.3.2'
+}
+
+group = 'io.github.sekassel'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.moeaframework/moeaframework
+    implementation group: 'org.moeaframework', name: 'moeaframework', version: '4.5'
+
+    // https://mvnrepository.com/artifact/org.eclipse.emf/org.eclipse.emf.ecore.xmi
+    implementation group: 'org.eclipse.emf', name: 'org.eclipse.emf.ecore.xmi', version: '2.38.0'
+
+    // https://mvnrepository.com/artifact/org.postgresql/postgresql
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.7.4'
+
+    // https://mvnrepository.com/artifact/com.zaxxer/HikariCP
+    implementation group: 'com.zaxxer', name: 'HikariCP', version: '6.0.0'
+
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.9'
+}
+
+application {
+    mainClass = 'io.github.sekassel.moea.Main'
+}
