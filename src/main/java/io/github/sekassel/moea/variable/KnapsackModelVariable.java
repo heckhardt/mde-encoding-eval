@@ -1,10 +1,7 @@
 package io.github.sekassel.moea.variable;
 
-import io.github.sekassel.moea.model.knapsack.Item;
-import io.github.sekassel.moea.model.knapsack.Knapsack;
-import io.github.sekassel.moea.model.knapsack.KnapsackModel;
+import io.github.sekassel.moea.model.knapsack.*;
 import org.apache.commons.lang3.NotImplementedException;
-import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.moeaframework.core.PRNG;
 import org.moeaframework.core.Variable;
 
@@ -17,7 +14,27 @@ public class KnapsackModelVariable implements Variable {
 
     @Override
     public Variable copy() {
-        return new KnapsackModelVariable(EcoreUtil.copy(model));
+        final KnapsackFactory kFactory = KnapsackFactory.eINSTANCE;
+        final KnapsackPackage kPackage = KnapsackPackage.eINSTANCE;
+        final KnapsackModel modelCopy = kFactory.createKnapsackModel();
+
+        for (final Knapsack knapsack : model.getKnapsacks()) {
+            final Knapsack knapsackCopy = kFactory.createKnapsack();
+            knapsackCopy.setCapacity(knapsack.getCapacity());
+            modelCopy.getKnapsacks().add(knapsackCopy);
+        }
+        for (final Item item : model.getItems()) {
+            final Item itemCopy = kFactory.createItem();
+            itemCopy.eSet(kPackage.getItem_Weights(), item.getWeights());
+            itemCopy.eSet(kPackage.getItem_Values(), item.getValues());
+            final Knapsack isContainedBy = item.getIsContainedBy();
+            if (isContainedBy != null) {
+                final int index = model.getKnapsacks().indexOf(isContainedBy);
+                itemCopy.setIsContainedBy(modelCopy.getKnapsacks().get(index));
+            }
+            modelCopy.getItems().add(itemCopy);
+        }
+        return new KnapsackModelVariable(modelCopy);
     }
 
     @Override
