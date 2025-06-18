@@ -37,7 +37,7 @@ max_wal_size = 2GB
 _The source code expects the database server to be available on localhost:5432 and the database to be named `postgres` with a user named `postgres` and password `postgres`.
 If this is not the case, adjust these values in `src/main/java/Main.java` accordingly before proceeding with the build step._
 
-Once the database server is set up, the database schema can be created by applying the `schema.sql` SQL file to the database:
+Once the database server is set up, the database schema can be applied using the `schema.sql` SQL file:
 ```bash
 psql -U postgres -d postgres -f schema.sql
 ```
