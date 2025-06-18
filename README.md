@@ -75,6 +75,10 @@ _TODO_
 
 ## Influence of Population Size
 
+<details>
+
+<summary>Hypervolume</summary>
+
 **Table 1:** Hypervolume ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Hv.csv) | [PDF]() ]
 
 <table>
@@ -290,6 +294,12 @@ _TODO_
 </tbody>
 </table>
 
+</details>
+
+
+<details>
+
+<summary>Duration</summary>
 
 **Table 2:** Millisecond duration ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Dur.csv) | [PDF]() ]
 
@@ -505,3 +515,5 @@ _TODO_
   </tr>
 </tbody>
 </table>
+
+</details>
