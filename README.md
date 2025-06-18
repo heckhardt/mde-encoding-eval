@@ -21,15 +21,18 @@ The following explains the steps necessary to set up the database, build the sou
 The easiest way to set up the database is to run it in a container via [Docker](https://www.docker.com/) and the provided `compose.yaml` file by running `docker compose up -d` from the repository root.
 This will configure the database server with reasonable defaults for running the evaluation, exactly as they were used to collect the data presented below, and apply the required schema.
 
-#### Manual configuration
+<details>
+
+<summary>Manual configuration</summary>
+
 For manual configuration, the following config values are recommended:
 ```bash
 # postgresql.conf
 
-shared_buffers=8GB
-wal_level=minimal
-max_wal_senders=0
-max_wal_size=2GB
+shared_buffers = 8GB
+wal_level = minimal
+max_wal_senders = 0
+max_wal_size = 2GB
 ```
 _The source code expects the database server to be available on localhost:5432 and the database to be named `postgres` with a user named `postgres` and password `postgres`.
 If this is not the case, adjust these values in `src/main/java/Main.java` accordingly before proceeding with the build step._
@@ -41,9 +44,11 @@ psql -U postgres -d postgres -f schema.sql
 This will create three tables, along with relevant indices:
 - `run` contains information about each run (the problem, instance, algorithm, configuration etc.)
 - `stats` contains timing and quality information about each iteration of each run
-- `solution` contains the objective and constraint values for each solution at each iteration of every run. _This will be by far the largest table. Ensure at least ~30GB of storage space are available to the database server to prevent issues with this._
+- `solution` contains the objective and constraint values for each solution at each iteration of every run. _This will be by far the largest table. Ensure at least ~30GB of storage space are available to the database server to prevent issues._
 
 Additionally, some functions and aggregates are created to simplify querying the data later on, as well as two views providing the (median) cumulative stats from the beginning to each iteration of every run.  
+
+</details>
 
 ### Configuring and running the evaluation
 The runner is configured for a machine with at least 24 cores/logical processors.
@@ -52,10 +57,9 @@ If this is not the case, adjust the `parallelism` and `maximumPoolSize` in `src/
 `maximumPoolSize` should be **at least** as high as `parallelism`, otherwise some threads will be left waiting for a database connection to become available between iterations. _This delay is **not** included in the timing measurements, but can drastically increase the (already high) total runtime duration of the evaluation._
 
 Finally, to run the evaluation, first build a runnable JAR file via `gradlew shadowJar`.
-The resulting JAR file will be located at `build/libs/moea-evaluation-1.0-SNAPSHOT-all.jar` and needs to be copied/moved to the repository root (or to another folder along with the `input` folder, such that it is on the same level as the `input` folder).
 Then, start the runner with the following command:
 ```bash
-java -jar -XX:+UseZGC -XX:+ZGenerational -XX:SoftMaxHeapSize=12g -Xmx16g moea-evaluation-1.0-SNAPSHOT-all.jar
+java -jar -XX:+UseZGC -XX:+ZGenerational -XX:SoftMaxHeapSize=12g -Xmx16g build/libs/moea-evaluation-1.0-SNAPSHOT-all.jar
 ```
 The values for `SoftMaxHeapSize` and `Xmx` can be adjusted, if needed, to allow running on machines with lower available memory. 
 
