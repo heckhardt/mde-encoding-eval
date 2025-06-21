@@ -26,15 +26,17 @@ public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
     public static void main(String[] args) {
+        final int parallelism = 20;
+        final int maximumPoolSize = 30;
+
         final HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:postgresql:postgres");
         config.setUsername("postgres");
         config.setPassword("postgres");
         config.addDataSourceProperty("reWriteBatchedInserts", "true");
-        config.setMaximumPoolSize(30);
+        config.setMaximumPoolSize(maximumPoolSize);
 
         try (final HikariDataSource dataSource = new HikariDataSource(config)) {
-            final int parallelism = 20;
             run(parallelism, dataSource);
             evaluate(parallelism, dataSource);
         }

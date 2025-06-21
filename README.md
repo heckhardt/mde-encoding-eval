@@ -18,7 +18,7 @@ The following explains the steps necessary to set up the database, build the sou
 - PostgreSQL 17
 
 ### Database setup
-The easiest way to set up the database is to run it in a container via [Docker](https://www.docker.com/) and the provided `compose.yaml` file by running `docker compose up -d` from the repository root.
+The easiest way to set up the database is to run it in a container via [Docker](https://www.docker.com/) and the provided [Compose file](compose.yaml) by running `docker compose up -d` from the repository root.
 This will configure the database server with reasonable defaults for running the evaluation, exactly as they were used to collect the data presented below, and apply the required schema.
 
 <details>
@@ -37,7 +37,7 @@ max_wal_size = 2GB
 _The source code expects the database server to be available on localhost:5432 and the database to be named `postgres` with a user named `postgres` and password `postgres`.
 If this is not the case, adjust these values in `src/main/java/Main.java` accordingly before proceeding with the build step._
 
-Once the database server is set up, the database schema can be applied using the `schema.sql` SQL file:
+Once the database server is set up, the database schema can be applied using the `schema.sql` file:
 ```bash
 psql -U postgres -d postgres -f schema.sql
 ```
@@ -52,7 +52,7 @@ Additionally, some functions and aggregates are created to simplify querying the
 
 ### Configuring and running the evaluation
 The runner is configured for a machine with at least 24 cores/logical processors.
-If this is not the case, adjust the `parallelism` and `maximumPoolSize` in `src/main/java/Main.java` accordingly.
+If this is not the case, adjust the `parallelism` and `maximumPoolSize` parameters in `src/main/java/Main.java` accordingly.
 `parallelism` represents the number of threads that will be used to run multiple algorithms in parallel, i.e., it should not exceed the number of cores and leave some headroom for the database server (if running locally) and operating system.
 `maximumPoolSize` should be **at least** as high as `parallelism`, otherwise some threads will be left waiting for a database connection to become available between iterations. _This delay is **not** included in the timing measurements, but can drastically increase the (already high) total runtime duration of the evaluation._
 
@@ -63,7 +63,7 @@ java -jar -XX:+UseZGC -XX:+ZGenerational -XX:SoftMaxHeapSize=12g -Xmx16g build/l
 ```
 The values for `SoftMaxHeapSize` and `Xmx` can be adjusted, if needed, to allow running on machines with lower available memory. 
 
-This will first perform a JVM warmup step, followed by 50 timed runs for each problem instance and representation, running 20 algorithms in parallel (by default).
+The runner will first perform a JVM warmup step, followed by 50 timed runs for each problem instance and representation, running 20 algorithms in parallel (by default).
 After all algorithms have terminated, the hypervolume is calculated for each iteration, normalized according to the reference set, i.e., the upper and lower bounds of the objectives of best solutions that were found throughout all runs for a given instance. 
 
 
@@ -71,7 +71,1265 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
 
 ## Descriptive Statistics
 
-_TODO_
+<details>
+
+<summary>Hypervolume</summary>
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">Problem</th>
+   <th style="text-align:left;">Instance</th>
+   <th style="text-align:left;">Repr</th>
+   <th style="text-align:right;">Mean</th>
+   <th style="text-align:right;">Med</th>
+   <th style="text-align:right;">SD</th>
+   <th style="text-align:right;">Var</th>
+   <th style="text-align:right;">Min</th>
+   <th style="text-align:right;">Max</th>
+   <th style="text-align:right;">Skew</th>
+   <th style="text-align:right;">Kurt</th>
+   <th style="text-align:right;">MAD</th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.585</td>
+   <td style="text-align:right;">0.587</td>
+   <td style="text-align:right;">0.014</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.540</td>
+   <td style="text-align:right;">0.610</td>
+   <td style="text-align:right;">-0.628</td>
+   <td style="text-align:right;">0.828</td>
+   <td style="text-align:right;">0.012</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.608</td>
+   <td style="text-align:right;">0.610</td>
+   <td style="text-align:right;">0.007</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.575</td>
+   <td style="text-align:right;">0.610</td>
+   <td style="text-align:right;">-3.569</td>
+   <td style="text-align:right;">11.625</td>
+   <td style="text-align:right;">0.000</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.652</td>
+   <td style="text-align:right;">0.657</td>
+   <td style="text-align:right;">0.026</td>
+   <td style="text-align:right;">0.001</td>
+   <td style="text-align:right;">0.572</td>
+   <td style="text-align:right;">0.695</td>
+   <td style="text-align:right;">-0.854</td>
+   <td style="text-align:right;">0.561</td>
+   <td style="text-align:right;">0.022</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.698</td>
+   <td style="text-align:right;">0.701</td>
+   <td style="text-align:right;">0.015</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.633</td>
+   <td style="text-align:right;">0.720</td>
+   <td style="text-align:right;">-1.768</td>
+   <td style="text-align:right;">4.541</td>
+   <td style="text-align:right;">0.011</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.575</td>
+   <td style="text-align:right;">0.582</td>
+   <td style="text-align:right;">0.034</td>
+   <td style="text-align:right;">0.001</td>
+   <td style="text-align:right;">0.478</td>
+   <td style="text-align:right;">0.645</td>
+   <td style="text-align:right;">-0.653</td>
+   <td style="text-align:right;">0.674</td>
+   <td style="text-align:right;">0.025</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.623</td>
+   <td style="text-align:right;">0.617</td>
+   <td style="text-align:right;">0.040</td>
+   <td style="text-align:right;">0.002</td>
+   <td style="text-align:right;">0.536</td>
+   <td style="text-align:right;">0.727</td>
+   <td style="text-align:right;">0.247</td>
+   <td style="text-align:right;">0.255</td>
+   <td style="text-align:right;">0.039</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.434</td>
+   <td style="text-align:right;">0.435</td>
+   <td style="text-align:right;">0.046</td>
+   <td style="text-align:right;">0.002</td>
+   <td style="text-align:right;">0.324</td>
+   <td style="text-align:right;">0.528</td>
+   <td style="text-align:right;">-0.196</td>
+   <td style="text-align:right;">-0.331</td>
+   <td style="text-align:right;">0.048</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.507</td>
+   <td style="text-align:right;">0.510</td>
+   <td style="text-align:right;">0.048</td>
+   <td style="text-align:right;">0.002</td>
+   <td style="text-align:right;">0.384</td>
+   <td style="text-align:right;">0.584</td>
+   <td style="text-align:right;">-0.579</td>
+   <td style="text-align:right;">-0.179</td>
+   <td style="text-align:right;">0.046</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.405</td>
+   <td style="text-align:right;">0.404</td>
+   <td style="text-align:right;">0.049</td>
+   <td style="text-align:right;">0.002</td>
+   <td style="text-align:right;">0.289</td>
+   <td style="text-align:right;">0.519</td>
+   <td style="text-align:right;">-0.009</td>
+   <td style="text-align:right;">-0.004</td>
+   <td style="text-align:right;">0.043</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.453</td>
+   <td style="text-align:right;">0.458</td>
+   <td style="text-align:right;">0.061</td>
+   <td style="text-align:right;">0.004</td>
+   <td style="text-align:right;">0.318</td>
+   <td style="text-align:right;">0.582</td>
+   <td style="text-align:right;">-0.136</td>
+   <td style="text-align:right;">-0.529</td>
+   <td style="text-align:right;">0.059</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.509</td>
+   <td style="text-align:right;">0.511</td>
+   <td style="text-align:right;">0.054</td>
+   <td style="text-align:right;">0.003</td>
+   <td style="text-align:right;">0.363</td>
+   <td style="text-align:right;">0.600</td>
+   <td style="text-align:right;">-0.364</td>
+   <td style="text-align:right;">-0.358</td>
+   <td style="text-align:right;">0.054</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.646</td>
+   <td style="text-align:right;">0.656</td>
+   <td style="text-align:right;">0.043</td>
+   <td style="text-align:right;">0.002</td>
+   <td style="text-align:right;">0.515</td>
+   <td style="text-align:right;">0.722</td>
+   <td style="text-align:right;">-1.094</td>
+   <td style="text-align:right;">0.989</td>
+   <td style="text-align:right;">0.036</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.312</td>
+   <td style="text-align:right;">0.308</td>
+   <td style="text-align:right;">0.063</td>
+   <td style="text-align:right;">0.004</td>
+   <td style="text-align:right;">0.205</td>
+   <td style="text-align:right;">0.440</td>
+   <td style="text-align:right;">0.183</td>
+   <td style="text-align:right;">-0.920</td>
+   <td style="text-align:right;">0.070</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.513</td>
+   <td style="text-align:right;">0.528</td>
+   <td style="text-align:right;">0.090</td>
+   <td style="text-align:right;">0.008</td>
+   <td style="text-align:right;">0.347</td>
+   <td style="text-align:right;">0.668</td>
+   <td style="text-align:right;">-0.424</td>
+   <td style="text-align:right;">-1.108</td>
+   <td style="text-align:right;">0.097</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.360</td>
+   <td style="text-align:right;">0.359</td>
+   <td style="text-align:right;">0.088</td>
+   <td style="text-align:right;">0.008</td>
+   <td style="text-align:right;">0.130</td>
+   <td style="text-align:right;">0.570</td>
+   <td style="text-align:right;">-0.128</td>
+   <td style="text-align:right;">-0.172</td>
+   <td style="text-align:right;">0.096</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.533</td>
+   <td style="text-align:right;">0.537</td>
+   <td style="text-align:right;">0.075</td>
+   <td style="text-align:right;">0.006</td>
+   <td style="text-align:right;">0.344</td>
+   <td style="text-align:right;">0.758</td>
+   <td style="text-align:right;">0.162</td>
+   <td style="text-align:right;">0.568</td>
+   <td style="text-align:right;">0.070</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.390</td>
+   <td style="text-align:right;">0.390</td>
+   <td style="text-align:right;">0.022</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.322</td>
+   <td style="text-align:right;">0.442</td>
+   <td style="text-align:right;">-0.252</td>
+   <td style="text-align:right;">0.856</td>
+   <td style="text-align:right;">0.018</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.446</td>
+   <td style="text-align:right;">0.447</td>
+   <td style="text-align:right;">0.018</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.402</td>
+   <td style="text-align:right;">0.481</td>
+   <td style="text-align:right;">-0.322</td>
+   <td style="text-align:right;">-0.534</td>
+   <td style="text-align:right;">0.021</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.299</td>
+   <td style="text-align:right;">0.301</td>
+   <td style="text-align:right;">0.015</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.272</td>
+   <td style="text-align:right;">0.330</td>
+   <td style="text-align:right;">0.110</td>
+   <td style="text-align:right;">-0.582</td>
+   <td style="text-align:right;">0.014</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.417</td>
+   <td style="text-align:right;">0.419</td>
+   <td style="text-align:right;">0.011</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.395</td>
+   <td style="text-align:right;">0.442</td>
+   <td style="text-align:right;">0.126</td>
+   <td style="text-align:right;">-0.387</td>
+   <td style="text-align:right;">0.009</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">F</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.203</td>
+   <td style="text-align:right;">0.203</td>
+   <td style="text-align:right;">0.010</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.188</td>
+   <td style="text-align:right;">0.232</td>
+   <td style="text-align:right;">0.696</td>
+   <td style="text-align:right;">-0.040</td>
+   <td style="text-align:right;">0.010</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">F</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.375</td>
+   <td style="text-align:right;">0.375</td>
+   <td style="text-align:right;">0.011</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.350</td>
+   <td style="text-align:right;">0.397</td>
+   <td style="text-align:right;">-0.068</td>
+   <td style="text-align:right;">-0.285</td>
+   <td style="text-align:right;">0.010</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">G</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.096</td>
+   <td style="text-align:right;">0.096</td>
+   <td style="text-align:right;">0.006</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.076</td>
+   <td style="text-align:right;">0.107</td>
+   <td style="text-align:right;">-0.731</td>
+   <td style="text-align:right;">1.414</td>
+   <td style="text-align:right;">0.005</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">G</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.133</td>
+   <td style="text-align:right;">0.133</td>
+   <td style="text-align:right;">0.005</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.124</td>
+   <td style="text-align:right;">0.144</td>
+   <td style="text-align:right;">0.137</td>
+   <td style="text-align:right;">-0.705</td>
+   <td style="text-align:right;">0.005</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">H</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.077</td>
+   <td style="text-align:right;">0.077</td>
+   <td style="text-align:right;">0.004</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.067</td>
+   <td style="text-align:right;">0.083</td>
+   <td style="text-align:right;">-0.717</td>
+   <td style="text-align:right;">0.255</td>
+   <td style="text-align:right;">0.003</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">H</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.128</td>
+   <td style="text-align:right;">0.128</td>
+   <td style="text-align:right;">0.003</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.119</td>
+   <td style="text-align:right;">0.135</td>
+   <td style="text-align:right;">-0.162</td>
+   <td style="text-align:right;">0.831</td>
+   <td style="text-align:right;">0.003</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">I</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.067</td>
+   <td style="text-align:right;">0.066</td>
+   <td style="text-align:right;">0.003</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.061</td>
+   <td style="text-align:right;">0.073</td>
+   <td style="text-align:right;">0.086</td>
+   <td style="text-align:right;">-0.771</td>
+   <td style="text-align:right;">0.003</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">I</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">0.124</td>
+   <td style="text-align:right;">0.124</td>
+   <td style="text-align:right;">0.003</td>
+   <td style="text-align:right;">0.000</td>
+   <td style="text-align:right;">0.117</td>
+   <td style="text-align:right;">0.133</td>
+   <td style="text-align:right;">0.288</td>
+   <td style="text-align:right;">-0.051</td>
+   <td style="text-align:right;">0.004</td>
+  </tr>
+</tbody>
+</table>
+
+</details>
+
+
+<details>
+
+<summary>Total Duration</summary>
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">Problem</th>
+   <th style="text-align:left;">Instance</th>
+   <th style="text-align:left;">Repr</th>
+   <th style="text-align:right;">Mead</th>
+   <th style="text-align:right;">Med</th>
+   <th style="text-align:right;">SD</th>
+   <th style="text-align:right;">Var</th>
+   <th style="text-align:right;">Min</th>
+   <th style="text-align:right;">Max</th>
+   <th style="text-align:right;">Skew</th>
+   <th style="text-align:right;">Kurt</th>
+   <th style="text-align:right;">MAD</th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">63.561</td>
+   <td style="text-align:right;">64.104</td>
+   <td style="text-align:right;">20.022</td>
+   <td style="text-align:right;">4.008930e+02</td>
+   <td style="text-align:right;">25.512</td>
+   <td style="text-align:right;">106.856</td>
+   <td style="text-align:right;">0.132</td>
+   <td style="text-align:right;">-0.561</td>
+   <td style="text-align:right;">20.729</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">93.326</td>
+   <td style="text-align:right;">90.834</td>
+   <td style="text-align:right;">14.274</td>
+   <td style="text-align:right;">2.037380e+02</td>
+   <td style="text-align:right;">63.812</td>
+   <td style="text-align:right;">135.697</td>
+   <td style="text-align:right;">0.401</td>
+   <td style="text-align:right;">0.031</td>
+   <td style="text-align:right;">14.609</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">153.389</td>
+   <td style="text-align:right;">156.517</td>
+   <td style="text-align:right;">29.983</td>
+   <td style="text-align:right;">8.989990e+02</td>
+   <td style="text-align:right;">79.064</td>
+   <td style="text-align:right;">229.502</td>
+   <td style="text-align:right;">-0.009</td>
+   <td style="text-align:right;">-0.079</td>
+   <td style="text-align:right;">29.577</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">485.504</td>
+   <td style="text-align:right;">470.921</td>
+   <td style="text-align:right;">109.302</td>
+   <td style="text-align:right;">1.194693e+04</td>
+   <td style="text-align:right;">240.850</td>
+   <td style="text-align:right;">720.141</td>
+   <td style="text-align:right;">0.128</td>
+   <td style="text-align:right;">-0.788</td>
+   <td style="text-align:right;">118.152</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">879.421</td>
+   <td style="text-align:right;">878.202</td>
+   <td style="text-align:right;">164.983</td>
+   <td style="text-align:right;">2.721929e+04</td>
+   <td style="text-align:right;">582.002</td>
+   <td style="text-align:right;">1210.641</td>
+   <td style="text-align:right;">0.063</td>
+   <td style="text-align:right;">-0.699</td>
+   <td style="text-align:right;">170.409</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">2929.430</td>
+   <td style="text-align:right;">2761.405</td>
+   <td style="text-align:right;">753.066</td>
+   <td style="text-align:right;">5.671085e+05</td>
+   <td style="text-align:right;">1635.813</td>
+   <td style="text-align:right;">5117.966</td>
+   <td style="text-align:right;">0.838</td>
+   <td style="text-align:right;">0.392</td>
+   <td style="text-align:right;">630.628</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">12941.304</td>
+   <td style="text-align:right;">12645.129</td>
+   <td style="text-align:right;">2364.791</td>
+   <td style="text-align:right;">5.592238e+06</td>
+   <td style="text-align:right;">8390.451</td>
+   <td style="text-align:right;">17976.413</td>
+   <td style="text-align:right;">0.346</td>
+   <td style="text-align:right;">-0.634</td>
+   <td style="text-align:right;">2134.847</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">25295.192</td>
+   <td style="text-align:right;">24494.663</td>
+   <td style="text-align:right;">5207.906</td>
+   <td style="text-align:right;">2.712229e+07</td>
+   <td style="text-align:right;">14672.592</td>
+   <td style="text-align:right;">37649.470</td>
+   <td style="text-align:right;">0.431</td>
+   <td style="text-align:right;">-0.122</td>
+   <td style="text-align:right;">5075.495</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">90197.480</td>
+   <td style="text-align:right;">91826.843</td>
+   <td style="text-align:right;">15175.717</td>
+   <td style="text-align:right;">2.303024e+08</td>
+   <td style="text-align:right;">60443.891</td>
+   <td style="text-align:right;">121553.844</td>
+   <td style="text-align:right;">-0.013</td>
+   <td style="text-align:right;">-0.948</td>
+   <td style="text-align:right;">17330.381</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">106187.238</td>
+   <td style="text-align:right;">109471.200</td>
+   <td style="text-align:right;">24709.949</td>
+   <td style="text-align:right;">6.105816e+08</td>
+   <td style="text-align:right;">65414.218</td>
+   <td style="text-align:right;">160803.482</td>
+   <td style="text-align:right;">0.062</td>
+   <td style="text-align:right;">-0.844</td>
+   <td style="text-align:right;">24095.914</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">1079.042</td>
+   <td style="text-align:right;">1075.504</td>
+   <td style="text-align:right;">161.868</td>
+   <td style="text-align:right;">2.620127e+04</td>
+   <td style="text-align:right;">769.858</td>
+   <td style="text-align:right;">1382.437</td>
+   <td style="text-align:right;">0.204</td>
+   <td style="text-align:right;">-0.959</td>
+   <td style="text-align:right;">172.647</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">53600.301</td>
+   <td style="text-align:right;">54470.898</td>
+   <td style="text-align:right;">6180.768</td>
+   <td style="text-align:right;">3.820189e+07</td>
+   <td style="text-align:right;">31559.307</td>
+   <td style="text-align:right;">65199.158</td>
+   <td style="text-align:right;">-1.201</td>
+   <td style="text-align:right;">2.623</td>
+   <td style="text-align:right;">4454.872</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">3210.247</td>
+   <td style="text-align:right;">3220.463</td>
+   <td style="text-align:right;">397.013</td>
+   <td style="text-align:right;">1.576195e+05</td>
+   <td style="text-align:right;">2391.919</td>
+   <td style="text-align:right;">4149.151</td>
+   <td style="text-align:right;">0.196</td>
+   <td style="text-align:right;">-0.422</td>
+   <td style="text-align:right;">403.031</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">215792.003</td>
+   <td style="text-align:right;">218768.048</td>
+   <td style="text-align:right;">30706.482</td>
+   <td style="text-align:right;">9.428881e+08</td>
+   <td style="text-align:right;">153301.000</td>
+   <td style="text-align:right;">276872.087</td>
+   <td style="text-align:right;">-0.116</td>
+   <td style="text-align:right;">-0.953</td>
+   <td style="text-align:right;">32559.089</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">6493.482</td>
+   <td style="text-align:right;">6535.075</td>
+   <td style="text-align:right;">689.937</td>
+   <td style="text-align:right;">4.760129e+05</td>
+   <td style="text-align:right;">4464.823</td>
+   <td style="text-align:right;">7666.709</td>
+   <td style="text-align:right;">-0.454</td>
+   <td style="text-align:right;">-0.183</td>
+   <td style="text-align:right;">825.193</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">435273.985</td>
+   <td style="text-align:right;">440797.537</td>
+   <td style="text-align:right;">41843.822</td>
+   <td style="text-align:right;">1.750905e+09</td>
+   <td style="text-align:right;">339216.687</td>
+   <td style="text-align:right;">553692.971</td>
+   <td style="text-align:right;">0.130</td>
+   <td style="text-align:right;">0.456</td>
+   <td style="text-align:right;">36419.095</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">4172.780</td>
+   <td style="text-align:right;">4205.138</td>
+   <td style="text-align:right;">697.683</td>
+   <td style="text-align:right;">4.867621e+05</td>
+   <td style="text-align:right;">2474.958</td>
+   <td style="text-align:right;">5384.623</td>
+   <td style="text-align:right;">-0.037</td>
+   <td style="text-align:right;">-0.754</td>
+   <td style="text-align:right;">766.969</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">70701.128</td>
+   <td style="text-align:right;">69867.706</td>
+   <td style="text-align:right;">12375.553</td>
+   <td style="text-align:right;">1.531543e+08</td>
+   <td style="text-align:right;">43218.266</td>
+   <td style="text-align:right;">92057.025</td>
+   <td style="text-align:right;">-0.066</td>
+   <td style="text-align:right;">-0.890</td>
+   <td style="text-align:right;">13228.866</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">9577.562</td>
+   <td style="text-align:right;">9378.702</td>
+   <td style="text-align:right;">1360.233</td>
+   <td style="text-align:right;">1.850234e+06</td>
+   <td style="text-align:right;">6856.536</td>
+   <td style="text-align:right;">13247.451</td>
+   <td style="text-align:right;">0.369</td>
+   <td style="text-align:right;">-0.316</td>
+   <td style="text-align:right;">1301.779</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">236912.647</td>
+   <td style="text-align:right;">236576.420</td>
+   <td style="text-align:right;">20460.815</td>
+   <td style="text-align:right;">4.186450e+08</td>
+   <td style="text-align:right;">186020.568</td>
+   <td style="text-align:right;">288099.389</td>
+   <td style="text-align:right;">-0.001</td>
+   <td style="text-align:right;">0.180</td>
+   <td style="text-align:right;">20608.483</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">F</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">18141.916</td>
+   <td style="text-align:right;">17856.719</td>
+   <td style="text-align:right;">1689.847</td>
+   <td style="text-align:right;">2.855584e+06</td>
+   <td style="text-align:right;">15413.138</td>
+   <td style="text-align:right;">23276.047</td>
+   <td style="text-align:right;">0.969</td>
+   <td style="text-align:right;">0.779</td>
+   <td style="text-align:right;">1694.468</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">F</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">614118.755</td>
+   <td style="text-align:right;">617177.219</td>
+   <td style="text-align:right;">39248.089</td>
+   <td style="text-align:right;">1.540413e+09</td>
+   <td style="text-align:right;">541938.215</td>
+   <td style="text-align:right;">727491.986</td>
+   <td style="text-align:right;">0.298</td>
+   <td style="text-align:right;">-0.309</td>
+   <td style="text-align:right;">46312.628</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">G</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">6682.920</td>
+   <td style="text-align:right;">6585.628</td>
+   <td style="text-align:right;">1369.217</td>
+   <td style="text-align:right;">1.874756e+06</td>
+   <td style="text-align:right;">4202.909</td>
+   <td style="text-align:right;">10439.122</td>
+   <td style="text-align:right;">0.293</td>
+   <td style="text-align:right;">-0.573</td>
+   <td style="text-align:right;">1569.362</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">G</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">77310.456</td>
+   <td style="text-align:right;">78467.483</td>
+   <td style="text-align:right;">10151.034</td>
+   <td style="text-align:right;">1.030435e+08</td>
+   <td style="text-align:right;">52309.126</td>
+   <td style="text-align:right;">92200.470</td>
+   <td style="text-align:right;">-0.869</td>
+   <td style="text-align:right;">0.084</td>
+   <td style="text-align:right;">9604.418</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">H</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">15956.375</td>
+   <td style="text-align:right;">15796.814</td>
+   <td style="text-align:right;">2050.762</td>
+   <td style="text-align:right;">4.205624e+06</td>
+   <td style="text-align:right;">10711.438</td>
+   <td style="text-align:right;">20570.998</td>
+   <td style="text-align:right;">-0.163</td>
+   <td style="text-align:right;">-0.093</td>
+   <td style="text-align:right;">2229.537</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">H</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">342762.680</td>
+   <td style="text-align:right;">354599.370</td>
+   <td style="text-align:right;">38408.673</td>
+   <td style="text-align:right;">1.475226e+09</td>
+   <td style="text-align:right;">235620.337</td>
+   <td style="text-align:right;">395426.326</td>
+   <td style="text-align:right;">-1.094</td>
+   <td style="text-align:right;">0.486</td>
+   <td style="text-align:right;">30489.632</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">I</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">30998.297</td>
+   <td style="text-align:right;">30831.150</td>
+   <td style="text-align:right;">2979.541</td>
+   <td style="text-align:right;">8.877666e+06</td>
+   <td style="text-align:right;">25622.660</td>
+   <td style="text-align:right;">36154.315</td>
+   <td style="text-align:right;">-0.057</td>
+   <td style="text-align:right;">-1.039</td>
+   <td style="text-align:right;">3410.880</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">I</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">785973.643</td>
+   <td style="text-align:right;">832321.589</td>
+   <td style="text-align:right;">124146.143</td>
+   <td style="text-align:right;">1.541226e+10</td>
+   <td style="text-align:right;">522825.830</td>
+   <td style="text-align:right;">956328.109</td>
+   <td style="text-align:right;">-0.935</td>
+   <td style="text-align:right;">-0.454</td>
+   <td style="text-align:right;">87577.011</td>
+  </tr>
+</tbody>
+</table>
+
+</details>
+
+
+<details>
+
+<summary>Duration per Iteration</summary>
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">Problem</th>
+   <th style="text-align:left;">Instance</th>
+   <th style="text-align:left;">Repr</th>
+   <th style="text-align:right;">Mean</th>
+   <th style="text-align:right;">Med</th>
+   <th style="text-align:right;">SD</th>
+   <th style="text-align:right;">Var</th>
+   <th style="text-align:right;">Min</th>
+   <th style="text-align:right;">Max</th>
+   <th style="text-align:right;">Skew</th>
+   <th style="text-align:right;">Kurt</th>
+   <th style="text-align:right;">MAD</th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.691</td>
+   <td style="text-align:right;">0.751</td>
+   <td style="text-align:right;">0.157</td>
+   <td style="text-align:right;">0.025</td>
+   <td style="text-align:right;">0.330</td>
+   <td style="text-align:right;">0.890</td>
+   <td style="text-align:right;">-0.924</td>
+   <td style="text-align:right;">-0.405</td>
+   <td style="text-align:right;">0.109</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">1.158</td>
+   <td style="text-align:right;">1.165</td>
+   <td style="text-align:right;">0.099</td>
+   <td style="text-align:right;">0.010</td>
+   <td style="text-align:right;">0.872</td>
+   <td style="text-align:right;">1.318</td>
+   <td style="text-align:right;">-0.765</td>
+   <td style="text-align:right;">0.096</td>
+   <td style="text-align:right;">0.104</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">0.871</td>
+   <td style="text-align:right;">0.876</td>
+   <td style="text-align:right;">0.077</td>
+   <td style="text-align:right;">0.006</td>
+   <td style="text-align:right;">0.739</td>
+   <td style="text-align:right;">1.081</td>
+   <td style="text-align:right;">0.362</td>
+   <td style="text-align:right;">-0.290</td>
+   <td style="text-align:right;">0.086</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">3.054</td>
+   <td style="text-align:right;">3.130</td>
+   <td style="text-align:right;">0.367</td>
+   <td style="text-align:right;">0.135</td>
+   <td style="text-align:right;">2.211</td>
+   <td style="text-align:right;">3.527</td>
+   <td style="text-align:right;">-0.455</td>
+   <td style="text-align:right;">-1.029</td>
+   <td style="text-align:right;">0.408</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">3.093</td>
+   <td style="text-align:right;">3.099</td>
+   <td style="text-align:right;">0.130</td>
+   <td style="text-align:right;">0.017</td>
+   <td style="text-align:right;">2.840</td>
+   <td style="text-align:right;">3.496</td>
+   <td style="text-align:right;">0.566</td>
+   <td style="text-align:right;">0.669</td>
+   <td style="text-align:right;">0.123</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">10.197</td>
+   <td style="text-align:right;">10.490</td>
+   <td style="text-align:right;">0.995</td>
+   <td style="text-align:right;">0.989</td>
+   <td style="text-align:right;">7.081</td>
+   <td style="text-align:right;">11.851</td>
+   <td style="text-align:right;">-1.201</td>
+   <td style="text-align:right;">1.332</td>
+   <td style="text-align:right;">0.580</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">31.716</td>
+   <td style="text-align:right;">32.710</td>
+   <td style="text-align:right;">2.405</td>
+   <td style="text-align:right;">5.784</td>
+   <td style="text-align:right;">25.415</td>
+   <td style="text-align:right;">35.688</td>
+   <td style="text-align:right;">-0.902</td>
+   <td style="text-align:right;">0.076</td>
+   <td style="text-align:right;">1.694</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">49.124</td>
+   <td style="text-align:right;">48.320</td>
+   <td style="text-align:right;">2.908</td>
+   <td style="text-align:right;">8.455</td>
+   <td style="text-align:right;">43.681</td>
+   <td style="text-align:right;">57.074</td>
+   <td style="text-align:right;">0.890</td>
+   <td style="text-align:right;">0.741</td>
+   <td style="text-align:right;">1.871</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">155.512</td>
+   <td style="text-align:right;">157.176</td>
+   <td style="text-align:right;">10.408</td>
+   <td style="text-align:right;">108.323</td>
+   <td style="text-align:right;">120.712</td>
+   <td style="text-align:right;">174.508</td>
+   <td style="text-align:right;">-0.938</td>
+   <td style="text-align:right;">0.975</td>
+   <td style="text-align:right;">7.704</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">CRA</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">144.699</td>
+   <td style="text-align:right;">153.154</td>
+   <td style="text-align:right;">21.413</td>
+   <td style="text-align:right;">458.535</td>
+   <td style="text-align:right;">82.182</td>
+   <td style="text-align:right;">170.610</td>
+   <td style="text-align:right;">-1.501</td>
+   <td style="text-align:right;">1.343</td>
+   <td style="text-align:right;">11.455</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">2.511</td>
+   <td style="text-align:right;">2.509</td>
+   <td style="text-align:right;">0.205</td>
+   <td style="text-align:right;">0.042</td>
+   <td style="text-align:right;">2.168</td>
+   <td style="text-align:right;">2.957</td>
+   <td style="text-align:right;">0.288</td>
+   <td style="text-align:right;">-1.022</td>
+   <td style="text-align:right;">0.263</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">130.231</td>
+   <td style="text-align:right;">133.913</td>
+   <td style="text-align:right;">8.756</td>
+   <td style="text-align:right;">76.667</td>
+   <td style="text-align:right;">105.198</td>
+   <td style="text-align:right;">142.130</td>
+   <td style="text-align:right;">-1.514</td>
+   <td style="text-align:right;">0.976</td>
+   <td style="text-align:right;">1.204</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">5.795</td>
+   <td style="text-align:right;">5.783</td>
+   <td style="text-align:right;">0.296</td>
+   <td style="text-align:right;">0.087</td>
+   <td style="text-align:right;">5.310</td>
+   <td style="text-align:right;">6.460</td>
+   <td style="text-align:right;">0.219</td>
+   <td style="text-align:right;">-0.647</td>
+   <td style="text-align:right;">0.313</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">367.184</td>
+   <td style="text-align:right;">370.277</td>
+   <td style="text-align:right;">9.516</td>
+   <td style="text-align:right;">90.560</td>
+   <td style="text-align:right;">335.451</td>
+   <td style="text-align:right;">381.971</td>
+   <td style="text-align:right;">-1.285</td>
+   <td style="text-align:right;">1.085</td>
+   <td style="text-align:right;">4.900</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">10.474</td>
+   <td style="text-align:right;">10.489</td>
+   <td style="text-align:right;">0.259</td>
+   <td style="text-align:right;">0.067</td>
+   <td style="text-align:right;">9.887</td>
+   <td style="text-align:right;">10.939</td>
+   <td style="text-align:right;">-0.096</td>
+   <td style="text-align:right;">-0.712</td>
+   <td style="text-align:right;">0.283</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">705.312</td>
+   <td style="text-align:right;">712.532</td>
+   <td style="text-align:right;">18.970</td>
+   <td style="text-align:right;">359.859</td>
+   <td style="text-align:right;">658.377</td>
+   <td style="text-align:right;">729.689</td>
+   <td style="text-align:right;">-1.082</td>
+   <td style="text-align:right;">-0.192</td>
+   <td style="text-align:right;">9.025</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">8.134</td>
+   <td style="text-align:right;">8.123</td>
+   <td style="text-align:right;">0.160</td>
+   <td style="text-align:right;">0.026</td>
+   <td style="text-align:right;">7.875</td>
+   <td style="text-align:right;">8.494</td>
+   <td style="text-align:right;">0.351</td>
+   <td style="text-align:right;">-0.763</td>
+   <td style="text-align:right;">0.169</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">177.730</td>
+   <td style="text-align:right;">186.723</td>
+   <td style="text-align:right;">18.778</td>
+   <td style="text-align:right;">352.616</td>
+   <td style="text-align:right;">116.957</td>
+   <td style="text-align:right;">191.909</td>
+   <td style="text-align:right;">-1.813</td>
+   <td style="text-align:right;">2.124</td>
+   <td style="text-align:right;">2.341</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">15.160</td>
+   <td style="text-align:right;">15.026</td>
+   <td style="text-align:right;">0.410</td>
+   <td style="text-align:right;">0.168</td>
+   <td style="text-align:right;">14.608</td>
+   <td style="text-align:right;">16.177</td>
+   <td style="text-align:right;">1.156</td>
+   <td style="text-align:right;">-0.008</td>
+   <td style="text-align:right;">0.171</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">462.654</td>
+   <td style="text-align:right;">470.522</td>
+   <td style="text-align:right;">18.875</td>
+   <td style="text-align:right;">356.282</td>
+   <td style="text-align:right;">412.462</td>
+   <td style="text-align:right;">485.959</td>
+   <td style="text-align:right;">-1.515</td>
+   <td style="text-align:right;">1.009</td>
+   <td style="text-align:right;">5.921</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">F</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">24.124</td>
+   <td style="text-align:right;">24.067</td>
+   <td style="text-align:right;">0.760</td>
+   <td style="text-align:right;">0.577</td>
+   <td style="text-align:right;">22.419</td>
+   <td style="text-align:right;">27.542</td>
+   <td style="text-align:right;">1.389</td>
+   <td style="text-align:right;">6.434</td>
+   <td style="text-align:right;">0.458</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">F</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">873.366</td>
+   <td style="text-align:right;">886.382</td>
+   <td style="text-align:right;">35.406</td>
+   <td style="text-align:right;">1253.620</td>
+   <td style="text-align:right;">801.348</td>
+   <td style="text-align:right;">912.788</td>
+   <td style="text-align:right;">-1.247</td>
+   <td style="text-align:right;">-0.156</td>
+   <td style="text-align:right;">13.411</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">G</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">16.039</td>
+   <td style="text-align:right;">15.987</td>
+   <td style="text-align:right;">0.336</td>
+   <td style="text-align:right;">0.113</td>
+   <td style="text-align:right;">15.454</td>
+   <td style="text-align:right;">17.022</td>
+   <td style="text-align:right;">0.608</td>
+   <td style="text-align:right;">0.115</td>
+   <td style="text-align:right;">0.319</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">G</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">227.502</td>
+   <td style="text-align:right;">238.314</td>
+   <td style="text-align:right;">22.879</td>
+   <td style="text-align:right;">523.460</td>
+   <td style="text-align:right;">164.738</td>
+   <td style="text-align:right;">246.047</td>
+   <td style="text-align:right;">-1.743</td>
+   <td style="text-align:right;">1.626</td>
+   <td style="text-align:right;">5.749</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">H</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">25.000</td>
+   <td style="text-align:right;">25.580</td>
+   <td style="text-align:right;">1.327</td>
+   <td style="text-align:right;">1.760</td>
+   <td style="text-align:right;">21.509</td>
+   <td style="text-align:right;">26.427</td>
+   <td style="text-align:right;">-1.097</td>
+   <td style="text-align:right;">-0.009</td>
+   <td style="text-align:right;">0.772</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">H</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">563.557</td>
+   <td style="text-align:right;">586.801</td>
+   <td style="text-align:right;">48.692</td>
+   <td style="text-align:right;">2370.874</td>
+   <td style="text-align:right;">442.064</td>
+   <td style="text-align:right;">604.761</td>
+   <td style="text-align:right;">-1.507</td>
+   <td style="text-align:right;">0.469</td>
+   <td style="text-align:right;">3.937</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">I</td>
+   <td style="text-align:left;">IntArray</td>
+   <td style="text-align:right;">37.674</td>
+   <td style="text-align:right;">38.046</td>
+   <td style="text-align:right;">1.158</td>
+   <td style="text-align:right;">1.340</td>
+   <td style="text-align:right;">32.916</td>
+   <td style="text-align:right;">39.374</td>
+   <td style="text-align:right;">-2.217</td>
+   <td style="text-align:right;">6.011</td>
+   <td style="text-align:right;">0.688</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Knapsack</td>
+   <td style="text-align:left;">I</td>
+   <td style="text-align:left;">Model</td>
+   <td style="text-align:right;">990.428</td>
+   <td style="text-align:right;">1049.208</td>
+   <td style="text-align:right;">125.525</td>
+   <td style="text-align:right;">15756.530</td>
+   <td style="text-align:right;">678.848</td>
+   <td style="text-align:right;">1077.255</td>
+   <td style="text-align:right;">-1.519</td>
+   <td style="text-align:right;">0.470</td>
+   <td style="text-align:right;">10.415</td>
+  </tr>
+</tbody>
+</table>
+
+</details>
+
 
 ## Influence of Population Size
 
@@ -79,7 +1337,7 @@ _TODO_
 
 <summary>Hypervolume</summary>
 
-**Table 1:** Hypervolume ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Hv.csv) | [PDF]() ]
+**Table 1:** Hypervolume ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Hv.csv) | [PDF](data/PopSize_Hv.pdf) ]
 
 <table>
  <thead>
@@ -301,7 +1559,7 @@ _TODO_
 
 <summary>Duration</summary>
 
-**Table 2:** Millisecond duration ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Dur.csv) | [PDF]() ]
+**Table 2:** Millisecond duration ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Dur.csv) | [PDF](data/PopSize_Dur.pdf) ]
 
 <table>
  <thead>
