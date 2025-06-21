@@ -75,6 +75,8 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
 
 <summary>Hypervolume</summary>
 
+**Table 1:** Full descriptive statistics for the hypervolume at termination [ [CSV](data/Stats_Hv.csv) | [PDF](data/Stats_Hv.pdf) ]
+
 <table>
  <thead>
   <tr>
@@ -455,6 +457,8 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
 
 <summary>Total Duration</summary>
 
+**Table 2:** Full descriptive statistics for the total duration in milliseconds [ [CSV](data/Stats_Dur_Total.csv) | [PDF](data/Stats_Dur_Total.pdf) ]
+
 <table>
  <thead>
   <tr>
@@ -834,6 +838,8 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
 <details>
 
 <summary>Duration per Iteration</summary>
+
+**Table 3:** Full descriptive statistics for the average duration per iteration in milliseconds [ [CSV](data/Stats_Dur_PerIt.csv) | [PDF](data/Stats_Dur_PerIt.pdf) ]
 
 <table>
  <thead>
@@ -1217,7 +1223,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
 
 <summary>Hypervolume</summary>
 
-**Table 1:** Hypervolume ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Hv.csv) | [PDF](data/PopSize_Hv.pdf) ]
+**Table 4:** Hypervolume ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Hv.csv) | [PDF](data/PopSize_Hv.pdf) ]
 
 <table>
  <thead>
@@ -1439,7 +1445,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
 
 <summary>Duration</summary>
 
-**Table 2:** Millisecond duration ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Dur.csv) | [PDF](data/PopSize_Dur.pdf) ]
+**Table 5:** Millisecond duration ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Dur.csv) | [PDF](data/PopSize_Dur.pdf) ]
 
 <table>
  <thead>
