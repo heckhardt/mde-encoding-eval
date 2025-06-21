@@ -94,8 +94,8 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">A</td>
+   <td style="text-align:left;" rowspan="10">CRA</td>
+   <td style="text-align:left;" rowspan="2">A</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.585</td>
    <td style="text-align:right;">0.587</td>
@@ -108,8 +108,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.012</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">A</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.608</td>
    <td style="text-align:right;">0.610</td>
@@ -122,8 +120,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.000</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">B</td>
+   <td style="text-align:left;" rowspan="2">B</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.652</td>
    <td style="text-align:right;">0.657</td>
@@ -136,8 +133,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.022</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">B</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.698</td>
    <td style="text-align:right;">0.701</td>
@@ -150,8 +145,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.011</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">C</td>
+   <td style="text-align:left;" rowspan="2">C</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.575</td>
    <td style="text-align:right;">0.582</td>
@@ -164,8 +158,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.025</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">C</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.623</td>
    <td style="text-align:right;">0.617</td>
@@ -178,8 +170,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.039</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">D</td>
+   <td style="text-align:left;" rowspan="2">D</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.434</td>
    <td style="text-align:right;">0.435</td>
@@ -192,8 +183,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.048</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">D</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.507</td>
    <td style="text-align:right;">0.510</td>
@@ -206,8 +195,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.046</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">E</td>
+   <td style="text-align:left;" rowspan="2">E</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.405</td>
    <td style="text-align:right;">0.404</td>
@@ -220,8 +208,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.043</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">E</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.453</td>
    <td style="text-align:right;">0.458</td>
@@ -234,8 +220,8 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.059</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">A</td>
+   <td style="text-align:left;" rowspan="18">Knapsack</td>
+   <td style="text-align:left;" rowspan="2">A</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.509</td>
    <td style="text-align:right;">0.511</td>
@@ -248,8 +234,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.054</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">A</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.646</td>
    <td style="text-align:right;">0.656</td>
@@ -262,8 +246,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.036</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">B</td>
+   <td style="text-align:left;" rowspan="2">B</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.312</td>
    <td style="text-align:right;">0.308</td>
@@ -276,8 +259,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.070</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">B</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.513</td>
    <td style="text-align:right;">0.528</td>
@@ -290,8 +271,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.097</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">C</td>
+   <td style="text-align:left;" rowspan="2">C</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.360</td>
    <td style="text-align:right;">0.359</td>
@@ -304,8 +284,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.096</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">C</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.533</td>
    <td style="text-align:right;">0.537</td>
@@ -318,8 +296,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.070</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">D</td>
+   <td style="text-align:left;" rowspan="2">D</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.390</td>
    <td style="text-align:right;">0.390</td>
@@ -332,8 +309,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.018</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">D</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.446</td>
    <td style="text-align:right;">0.447</td>
@@ -346,8 +321,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.021</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">E</td>
+   <td style="text-align:left;" rowspan="2">E</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.299</td>
    <td style="text-align:right;">0.301</td>
@@ -360,8 +334,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.014</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">E</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.417</td>
    <td style="text-align:right;">0.419</td>
@@ -374,8 +346,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.009</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">F</td>
+   <td style="text-align:left;" rowspan="2">F</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.203</td>
    <td style="text-align:right;">0.203</td>
@@ -388,8 +359,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.010</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">F</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.375</td>
    <td style="text-align:right;">0.375</td>
@@ -402,8 +371,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.010</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">G</td>
+   <td style="text-align:left;" rowspan="2">G</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.096</td>
    <td style="text-align:right;">0.096</td>
@@ -416,8 +384,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.005</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">G</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.133</td>
    <td style="text-align:right;">0.133</td>
@@ -430,8 +396,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.005</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">H</td>
+   <td style="text-align:left;" rowspan="2">H</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.077</td>
    <td style="text-align:right;">0.077</td>
@@ -444,8 +409,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.003</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">H</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.128</td>
    <td style="text-align:right;">0.128</td>
@@ -458,8 +421,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.003</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">I</td>
+   <td style="text-align:left;" rowspan="2">I</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.067</td>
    <td style="text-align:right;">0.066</td>
@@ -472,8 +434,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.003</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">I</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">0.124</td>
    <td style="text-align:right;">0.124</td>
@@ -514,8 +474,8 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">A</td>
+   <td style="text-align:left;" rowspan="10">CRA</td>
+   <td style="text-align:left;" rowspan="2">A</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">63.561</td>
    <td style="text-align:right;">64.104</td>
@@ -528,8 +488,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">20.729</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">A</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">93.326</td>
    <td style="text-align:right;">90.834</td>
@@ -542,8 +500,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">14.609</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">B</td>
+   <td style="text-align:left;" rowspan="2">B</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">153.389</td>
    <td style="text-align:right;">156.517</td>
@@ -556,8 +513,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">29.577</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">B</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">485.504</td>
    <td style="text-align:right;">470.921</td>
@@ -570,8 +525,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">118.152</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">C</td>
+   <td style="text-align:left;" rowspan="2">C</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">879.421</td>
    <td style="text-align:right;">878.202</td>
@@ -584,8 +538,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">170.409</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">C</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">2929.430</td>
    <td style="text-align:right;">2761.405</td>
@@ -598,8 +550,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">630.628</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">D</td>
+   <td style="text-align:left;" rowspan="2">D</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">12941.304</td>
    <td style="text-align:right;">12645.129</td>
@@ -612,8 +563,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">2134.847</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">D</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">25295.192</td>
    <td style="text-align:right;">24494.663</td>
@@ -626,8 +575,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">5075.495</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">E</td>
+   <td style="text-align:left;" rowspan="2">E</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">90197.480</td>
    <td style="text-align:right;">91826.843</td>
@@ -640,8 +588,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">17330.381</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">E</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">106187.238</td>
    <td style="text-align:right;">109471.200</td>
@@ -654,8 +600,8 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">24095.914</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">A</td>
+   <td style="text-align:left;" rowspan="18">Knapsack</td>
+   <td style="text-align:left;" rowspan="2">A</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">1079.042</td>
    <td style="text-align:right;">1075.504</td>
@@ -668,8 +614,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">172.647</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">A</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">53600.301</td>
    <td style="text-align:right;">54470.898</td>
@@ -682,8 +626,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">4454.872</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">B</td>
+   <td style="text-align:left;" rowspan="2">B</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">3210.247</td>
    <td style="text-align:right;">3220.463</td>
@@ -696,8 +639,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">403.031</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">B</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">215792.003</td>
    <td style="text-align:right;">218768.048</td>
@@ -710,8 +651,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">32559.089</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">C</td>
+   <td style="text-align:left;" rowspan="2">C</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">6493.482</td>
    <td style="text-align:right;">6535.075</td>
@@ -724,8 +664,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">825.193</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">C</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">435273.985</td>
    <td style="text-align:right;">440797.537</td>
@@ -738,8 +676,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">36419.095</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">D</td>
+   <td style="text-align:left;" rowspan="2">D</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">4172.780</td>
    <td style="text-align:right;">4205.138</td>
@@ -752,8 +689,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">766.969</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">D</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">70701.128</td>
    <td style="text-align:right;">69867.706</td>
@@ -766,8 +701,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">13228.866</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">E</td>
+   <td style="text-align:left;" rowspan="2">E</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">9577.562</td>
    <td style="text-align:right;">9378.702</td>
@@ -780,8 +714,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">1301.779</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">E</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">236912.647</td>
    <td style="text-align:right;">236576.420</td>
@@ -794,8 +726,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">20608.483</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">F</td>
+   <td style="text-align:left;" rowspan="2">F</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">18141.916</td>
    <td style="text-align:right;">17856.719</td>
@@ -808,8 +739,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">1694.468</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">F</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">614118.755</td>
    <td style="text-align:right;">617177.219</td>
@@ -822,8 +751,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">46312.628</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">G</td>
+   <td style="text-align:left;" rowspan="2">G</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">6682.920</td>
    <td style="text-align:right;">6585.628</td>
@@ -836,8 +764,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">1569.362</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">G</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">77310.456</td>
    <td style="text-align:right;">78467.483</td>
@@ -850,8 +776,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">9604.418</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">H</td>
+   <td style="text-align:left;" rowspan="2">H</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">15956.375</td>
    <td style="text-align:right;">15796.814</td>
@@ -864,8 +789,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">2229.537</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">H</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">342762.680</td>
    <td style="text-align:right;">354599.370</td>
@@ -878,8 +801,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">30489.632</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">I</td>
+   <td style="text-align:left;" rowspan="2">I</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">30998.297</td>
    <td style="text-align:right;">30831.150</td>
@@ -892,8 +814,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">3410.880</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">I</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">785973.643</td>
    <td style="text-align:right;">832321.589</td>
@@ -934,8 +854,8 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
  </thead>
 <tbody>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">A</td>
+   <td style="text-align:left;" rowspan="10">CRA</td>
+   <td style="text-align:left;" rowspan="2">A</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.691</td>
    <td style="text-align:right;">0.751</td>
@@ -948,8 +868,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.109</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">A</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">1.158</td>
    <td style="text-align:right;">1.165</td>
@@ -962,8 +880,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.104</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">B</td>
+   <td style="text-align:left;" rowspan="2">B</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">0.871</td>
    <td style="text-align:right;">0.876</td>
@@ -976,8 +893,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.086</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">B</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">3.054</td>
    <td style="text-align:right;">3.130</td>
@@ -990,8 +905,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.408</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">C</td>
+   <td style="text-align:left;" rowspan="2">C</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">3.093</td>
    <td style="text-align:right;">3.099</td>
@@ -1004,8 +918,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.123</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">C</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">10.197</td>
    <td style="text-align:right;">10.490</td>
@@ -1018,8 +930,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.580</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">D</td>
+   <td style="text-align:left;" rowspan="2">D</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">31.716</td>
    <td style="text-align:right;">32.710</td>
@@ -1032,8 +943,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">1.694</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">D</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">49.124</td>
    <td style="text-align:right;">48.320</td>
@@ -1046,8 +955,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">1.871</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">E</td>
+   <td style="text-align:left;" rowspan="2">E</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">155.512</td>
    <td style="text-align:right;">157.176</td>
@@ -1060,8 +968,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">7.704</td>
   </tr>
   <tr>
-   <td style="text-align:left;">CRA</td>
-   <td style="text-align:left;">E</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">144.699</td>
    <td style="text-align:right;">153.154</td>
@@ -1074,8 +980,8 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">11.455</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">A</td>
+   <td style="text-align:left;" rowspan="18">Knapsack</td>
+   <td style="text-align:left;" rowspan="2">A</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">2.511</td>
    <td style="text-align:right;">2.509</td>
@@ -1088,8 +994,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.263</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">A</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">130.231</td>
    <td style="text-align:right;">133.913</td>
@@ -1102,8 +1006,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">1.204</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">B</td>
+   <td style="text-align:left;" rowspan="2">B</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">5.795</td>
    <td style="text-align:right;">5.783</td>
@@ -1116,8 +1019,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.313</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">B</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">367.184</td>
    <td style="text-align:right;">370.277</td>
@@ -1130,8 +1031,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">4.900</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">C</td>
+   <td style="text-align:left;" rowspan="2">C</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">10.474</td>
    <td style="text-align:right;">10.489</td>
@@ -1144,8 +1044,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.283</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">C</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">705.312</td>
    <td style="text-align:right;">712.532</td>
@@ -1158,8 +1056,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">9.025</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">D</td>
+   <td style="text-align:left;" rowspan="2">D</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">8.134</td>
    <td style="text-align:right;">8.123</td>
@@ -1172,8 +1069,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.169</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">D</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">177.730</td>
    <td style="text-align:right;">186.723</td>
@@ -1186,8 +1081,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">2.341</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">E</td>
+   <td style="text-align:left;" rowspan="2">E</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">15.160</td>
    <td style="text-align:right;">15.026</td>
@@ -1200,8 +1094,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.171</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">E</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">462.654</td>
    <td style="text-align:right;">470.522</td>
@@ -1214,8 +1106,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">5.921</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">F</td>
+   <td style="text-align:left;" rowspan="2">F</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">24.124</td>
    <td style="text-align:right;">24.067</td>
@@ -1228,8 +1119,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.458</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">F</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">873.366</td>
    <td style="text-align:right;">886.382</td>
@@ -1242,8 +1131,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">13.411</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">G</td>
+   <td style="text-align:left;" rowspan="2">G</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">16.039</td>
    <td style="text-align:right;">15.987</td>
@@ -1256,8 +1144,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.319</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">G</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">227.502</td>
    <td style="text-align:right;">238.314</td>
@@ -1270,8 +1156,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">5.749</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">H</td>
+   <td style="text-align:left;" rowspan="2">H</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">25.000</td>
    <td style="text-align:right;">25.580</td>
@@ -1284,8 +1169,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.772</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">H</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">563.557</td>
    <td style="text-align:right;">586.801</td>
@@ -1298,8 +1181,7 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">3.937</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">I</td>
+   <td style="text-align:left;" rowspan="2">I</td>
    <td style="text-align:left;">IntArray</td>
    <td style="text-align:right;">37.674</td>
    <td style="text-align:right;">38.046</td>
@@ -1312,8 +1194,6 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
    <td style="text-align:right;">0.688</td>
   </tr>
   <tr>
-   <td style="text-align:left;">Knapsack</td>
-   <td style="text-align:left;">I</td>
    <td style="text-align:left;">Model</td>
    <td style="text-align:right;">990.428</td>
    <td style="text-align:right;">1049.208</td>
