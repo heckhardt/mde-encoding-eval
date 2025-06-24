@@ -1,11 +1,12 @@
 # Repository Structure
 
 - `data/` contains evaluation results in CSV/PDF format
-- `input/` contains the EMF XMI file for each problem instance
+- `input/` contains EMF XMI files for all problem instances
+- `plot/` contains the published plots/diagrams and R scripts they were generated with
 - `src/` contains the Java source code for running the evaluation
   - _TODO_
 - `compose.yaml` contains the database configuration for Docker
-- `query.sql` contains the SQL query statements to retrieve the data as it is presented below
+- `query.sql` contains a collection of SQL query statements used to retrieve relevant data
 - `schema.sql` contains the database schema
 
 # Running the evaluation
@@ -50,7 +51,7 @@ Additionally, some functions and aggregates are created to simplify querying the
 
 </details>
 
-### Configuring and running the evaluation
+## Configuring and running the evaluation
 The runner is configured for a machine with at least 24 cores/logical processors.
 If this is not the case, adjust the `parallelism` and `maximumPoolSize` parameters in `src/main/java/Main.java` accordingly.
 `parallelism` represents the number of threads that will be used to run multiple algorithms in parallel, i.e., it should not exceed the number of cores and leave some headroom for the database server (if running locally) and operating system.
@@ -450,6 +451,54 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
 </tbody>
 </table>
 
+<details>
+
+<summary>R script</summary>
+
+```R
+library(e1071)
+library(stringr)
+library(dplyr)
+library(boot)
+library(RPostgres)
+
+con <- dbConnect(
+  RPostgres::Postgres(),
+  user = "postgres",
+  password = "postgres",
+  dbname = "postgres",
+  port = 60010
+)
+
+df <- dbGetQuery(
+  con,
+  "select problem, instance, representation, (configuration ->> 'populationSize')::integer as population_size, hypervolume
+from run
+         join stats on run.id = stats.run_id and run.total_iterations = stats.iteration"
+)
+
+dbDisconnect(con)
+
+result <- df %>%
+  group_by(problem, instance, representation) %>%
+  summarise(
+    mean = mean(hypervolume),
+    median = median(hypervolume),
+    sd = sd(hypervolume),
+    var = var(hypervolume),
+    min = min(hypervolume),
+    max = max(hypervolume),
+    skewness = skewness(hypervolume),
+    kurtosis = kurtosis(hypervolume),
+    mad = mad(hypervolume)
+  )
+
+
+write.csv(result, col.names = FALSE)
+```
+
+</details>
+
 </details>
 
 
@@ -831,6 +880,54 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
   </tr>
 </tbody>
 </table>
+
+<details>
+
+<summary>R script</summary>
+
+```R
+library(e1071)
+library(stringr)
+library(dplyr)
+library(boot)
+library(RPostgres)
+
+con <- dbConnect(
+  RPostgres::Postgres(),
+  user = "postgres",
+  password = "postgres",
+  dbname = "postgres",
+  port = 60010
+)
+
+df <- dbGetQuery(
+  con,
+  "with duration as (select run_id, sum(step + should_terminate) / 1000000 as total from stats group by run_id)
+select problem, instance, representation, (configuration ->> 'populationSize')::integer as population_size, total
+from run
+         join duration on run.id = duration.run_id"
+)
+
+dbDisconnect(con)
+
+result <- df %>%
+  group_by(problem, instance, representation) %>%
+  summarise(
+    mean = mean(total),
+    median = median(total),
+    sd = sd(total),
+    var = var(total),
+    min = min(total),
+    max = max(total),
+    skewness = skewness(total),
+    kurtosis = kurtosis(total),
+    mad = mad(total)
+  )
+
+write.csv(result, col.names = FALSE)
+```
+
+</details>
 
 </details>
 
@@ -1214,6 +1311,54 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
 </tbody>
 </table>
 
+<details>
+
+<summary>R script</summary>
+
+```R
+library(e1071)
+library(stringr)
+library(dplyr)
+library(boot)
+library(RPostgres)
+
+con <- dbConnect(
+  RPostgres::Postgres(),
+  user = "postgres",
+  password = "postgres",
+  dbname = "postgres",
+  port = 60010
+)
+
+df <- dbGetQuery(
+  con,
+  "with duration as (select run_id, sum(step + should_terminate) / 1000000 as total from stats group by run_id)
+select problem, instance, representation, (configuration ->> 'populationSize')::integer as population_size, total / total_iterations as total
+from run
+         join duration on run.id = duration.run_id"
+)
+
+dbDisconnect(con)
+
+result <- df %>%
+  group_by(problem, instance, representation) %>%
+  summarise(
+    mean = mean(total),
+    median = median(total),
+    sd = sd(total),
+    var = var(total),
+    min = min(total),
+    max = max(total),
+    skewness = skewness(total),
+    kurtosis = kurtosis(total),
+    mad = mad(total)
+  )
+
+write.csv(result)
+```
+
+</details>
+
 </details>
 
 
@@ -1438,6 +1583,69 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
 </tbody>
 </table>
 
+<details>
+
+<summary>R script</summary>
+
+```R
+library(stringr)
+library(tidyr)
+library(dplyr)
+library(RPostgres)
+
+con <- dbConnect(
+  RPostgres::Postgres(),
+  user = "postgres",
+  password = "postgres",
+  dbname = "postgres"
+)
+
+df <- dbGetQuery(
+  con,
+  "with median as (select problem,
+                       instance,
+                       representation,
+                       (configuration ->> 'populationSize')::integer              as population_size,
+                       percentile_cont(0.5) within group ( order by hypervolume ) as hypervolume
+                from run
+                         join stats on run.id = stats.run_id and run.total_iterations = stats.iteration
+                group by problem, instance, representation, population_size),
+     baseline as (select distinct on (problem, instance, representation) *
+                  from median
+                  order by problem, instance, representation, population_size desc)
+select b.problem,
+       b.instance,
+       b.representation,
+       b.hypervolume                                  as ref_hv,
+       m.population_size / b.population_size::numeric as factor,
+       m.hypervolume                                  as cmp_hv,
+       m.hypervolume / b.hypervolume                  as ratio
+from baseline b
+         join median m on b.problem = m.problem and
+                          b.instance = m.instance and
+                          b.representation = m.representation and
+                          b.population_size != m.population_size
+order by b.problem, b.instance, m.population_size, b.representation"
+)
+
+dbDisconnect(con)
+
+result <- df %>%
+  filter(problem == "Knapsack") %>%
+  select(!problem) %>%
+  mutate(model = str_match(instance, "Input_(\\w)\\.xmi")[, 2]) %>%
+  relocate(model) %>%
+  select(!instance) %>%
+  pivot_wider(names_from = factor, values_from = c(cmp_hv, ratio)) %>%
+  relocate(c(cmp_hv_0.5, ratio_0.5), .after = ref_hv) %>%
+  relocate(c(cmp_hv_0.2, ratio_0.2), .after = ratio_0.5) %>%
+  relocate(c(cmp_hv_0.1, ratio_0.1), .after = ratio_0.2)
+
+write.csv(result)
+```
+
+</details>
+
 </details>
 
 
@@ -1659,5 +1867,69 @@ After all algorithms have terminated, the hypervolume is calculated for each ite
   </tr>
 </tbody>
 </table>
+
+<details>
+
+<summary>R script</summary>
+
+```R
+library(stringr)
+library(tidyr)
+library(dplyr)
+library(RPostgres)
+
+con <- dbConnect(
+  RPostgres::Postgres(),
+  user = "postgres",
+  password = "postgres",
+  dbname = "postgres"
+)
+
+df <- dbGetQuery(
+  con,
+  "with duration as (select run_id, sum(step + should_terminate) / 1000000 as total from stats group by run_id),
+     median as (select problem,
+                       instance,
+                       representation,
+                       (configuration ->> 'populationSize')::integer        as population_size,
+                       percentile_cont(0.5) within group ( order by total ) as total
+                from run
+                         join duration on run.id = duration.run_id
+                group by problem, instance, representation, population_size),
+     baseline as (select distinct on (problem, instance, representation) *
+                  from median
+                  order by problem, instance, representation, population_size desc)
+select b.problem,
+       b.instance,
+       b.representation,
+       b.total                                        as ref_total,
+       m.population_size / b.population_size::numeric as factor,
+       m.total                                        as cmp_total,
+       m.total / b.total                              as ratio
+from baseline b
+         join median m on b.problem = m.problem and
+                          b.instance = m.instance and
+                          b.representation = m.representation and
+                          b.population_size != m.population_size
+order by b.problem, b.instance, m.population_size, b.representation"
+)
+
+dbDisconnect(con)
+
+result <- df %>%
+  filter(problem == "Knapsack") %>%
+  select(!problem) %>%
+  mutate(model = str_match(instance, "(?:TTC_)?Input(?:RDG)?_(\\w)\\.xmi")[, 2]) %>%
+  relocate(model) %>%
+  select(!instance) %>%
+  pivot_wider(names_from = factor, values_from = c(cmp_total, ratio)) %>%
+  relocate(c(cmp_total_0.5, ratio_0.5), .after = ref_total) %>%
+  relocate(c(cmp_total_0.2, ratio_0.2), .after = ratio_0.5) %>%
+  relocate(c(cmp_total_0.1, ratio_0.1), .after = ratio_0.2)
+
+write.csv(result)
+```
+
+</details>
 
 </details>
