@@ -36,7 +36,7 @@ max_wal_senders = 0
 max_wal_size = 2GB
 ```
 _The source code expects the database server to be available on localhost:5432 and the database to be named `postgres` with a user named `postgres` and password `postgres`.
-If this is not the case, adjust these values in `src/main/java/Main.java` accordingly before proceeding with the build step._
+If this is not the case, adjust these values in `src/main/java/**/Main.java` accordingly before proceeding with the build step._
 
 Once the database server is set up, the database schema can be applied using the `schema.sql` file:
 ```bash
@@ -53,7 +53,7 @@ Additionally, some functions and aggregates are created to simplify querying the
 
 ## Configuring and running the evaluation
 The runner is configured for a machine with at least 24 cores/logical processors.
-If this is not the case, adjust the `parallelism` and `maximumPoolSize` parameters in `src/main/java/Main.java` accordingly.
+If this is not the case, adjust the `parallelism` and `maximumPoolSize` parameters in `src/main/java/**/Main.java` accordingly.
 `parallelism` represents the number of threads that will be used to run multiple algorithms in parallel, i.e., it should not exceed the number of cores and leave some headroom for the database server (if running locally) and operating system.
 `maximumPoolSize` should be **at least** as high as `parallelism`, otherwise some threads will be left waiting for a database connection to become available between iterations. _This delay is **not** included in the timing measurements, but can drastically increase the (already high) total runtime duration of the evaluation._
 
