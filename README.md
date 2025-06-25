@@ -17,17 +17,18 @@ At the top level, three important classes can be found:
 - `Main.java` is the entrypoint to the application and contains some general configuration values
 - `Runner.java` is responsible for reading the XMI problem specifications as well as constructing and running the evolutionary algorithms
 - `Evaluation.java` is responsible for calculating the normalized hypervolume after all algorithms have terminated
- 
-- `model/cra` and `model/knapsack` contain the EMF-generated sources for the EMF models
-- The `operator` package is home to the implementations of the mutation operators for the CRA and knapsack models as well as the generic IntArray representation within their respective packages
-  - `RandomMutation.java` is the generic operator responsible for randomly selecting an applicable operator at runtime and measuring the `copy`, `match` and `mutate` durations
-- `problem/cra` and `problem/knapsack` contain the MOEA-specific implementations of the respective optimization problems
-- The `store` package contains the data store implementations
-  - `NOPDataStore.java` is a no-op implementation used during warmup
-  - `PGDataStore.java` is backed by the (preconfigured) PostgreSQL database
-- `termination/SteadtState.java` implements the termination condition of reaching a hypervolume steady-state/plateau
-- `util/ConfigUtil.java` is used to serialize algorithm configurations as JSON
-- The `variable` package contains the MOEA-specific variable implementations for the EMF models as well as the IntArray representation
+
+The actual problem/algorithm implementation is structured as follows: 
+- The generated sources for the CRA and knapsack EMF models are located in the `model` package
+- The `operator` package is home to the implementations of the mutation operators for the CRA and knapsack models as well as the generic IntArray representation, each within their respective packages
+  - The `RandomMutation` class is the generic operator responsible for randomly selecting an applicable operator at runtime and measuring the `copy`, `match` and `mutate` durations
+- The `problem` package contain the MOEA Framework-specific implementations of the CRA and knapsack problems
+- The `store` package contains the `DataStore` interface and two implementations:
+  - `NOPDataStore` is a no-op implementation used during warmup
+  - `PGDataStore` is backed by the (preconfigured) PostgreSQL database
+- The `termination` package houses the termination condition implementation of reaching a hypervolume steady-state/plateau
+- Utilities for serializing algorithm configurations as JSON are located in within the `util` package
+- The MOEA Framework-specific variable implementations for the EMF models as well as the IntArray representation can be found in the `variable` package 
 
 Finally, the `generator.KnapsackGenerator` class is a standalone application to generate knapsack problem instances as per Michalewicz and Arabas[^1].
 
