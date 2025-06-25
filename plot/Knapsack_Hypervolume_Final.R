@@ -24,10 +24,7 @@ where problem = 'Knapsack'
 
 dbDisconnect(con)
 
-ggplot(
-  subset(df, model >= "A" & model <= "I"),
-  aes(x = model, y = hypervolume, fill = representation)
-) +
+ggplot(df, aes(x = model, y = hypervolume, fill = representation)) +
   geom_boxplot(
     size = 0,
     staplewidth = 0.5,

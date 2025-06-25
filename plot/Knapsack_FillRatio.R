@@ -34,18 +34,18 @@ dbDisconnect(con)
 scale <- max(df$med_total) / max(df$med_hypervolume)
 
 df$med_hypervolume <- df$med_hypervolume * scale
+df <- pivot_longer(df, starts_with("med_"))
 
 fill_ratio <- data.frame(model = unique(df$model),
                          knapsacks = c(2, 2, 2, 3, 3, 3, 4, 4, 4)) %>%
   mutate(value = knapsacks / (knapsacks + 1))
 
-ggplot(pivot_longer(df, starts_with("med_")),
-       aes(
-         x = fill_ratio,
-         y = value,
-         color = name,
-         shape = name
-       )) +
+ggplot(df, aes(
+  x = fill_ratio,
+  y = value,
+  color = name,
+  shape = name
+)) +
   geom_vline(data = fill_ratio, aes(xintercept = value), linetype = 3) +
   geom_line(linewidth = 0.25) +
   geom_point(size = 0.75) +

@@ -25,11 +25,7 @@ where problem = 'Knapsack'
 
 dbDisconnect(con)
 
-ggplot(df, aes(
-  x = model,
-  y = total,
-  fill = representation
-)) +
+ggplot(df, aes(x = model, y = total, fill = representation)) +
   scale_y_log10() +
   geom_boxplot(
     size = 0,

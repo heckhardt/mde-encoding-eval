@@ -38,11 +38,7 @@ dbDisconnect(con)
 
 df <- pivot_longer(df, cols = c(evaluate, copy, match, mutate))
 
-ggplot(df, aes(
-  x = model,
-  y = value,
-  fill = representation
-)) +
+ggplot(df, aes(x = model, y = value, fill = representation)) +
   scale_y_log10() +
   geom_col(position = position_dodge()) +
   labs(x = "Instance", y = "Duration (ms)", fill = "Representation") +
