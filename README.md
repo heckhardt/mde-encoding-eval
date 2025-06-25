@@ -19,7 +19,7 @@ At the top level, three important classes can be found:
 - `Evaluation.java` is responsible for calculating the normalized hypervolume after all algorithms have terminated
 
 The actual problem/algorithm implementation is structured as follows: 
-- The generated sources for the CRA and knapsack EMF models are located in the `model` package
+- The generated sources for the CRA and knapsack EMF models are located within the `model` package
 - The `operator` package is home to the implementations of the mutation operators for the CRA and knapsack models as well as the generic IntArray representation, each within their respective packages
   - The `RandomMutation` class is the generic operator responsible for randomly selecting an applicable operator at runtime and measuring the `copy`, `match` and `mutate` durations
 - The `problem` package contain the MOEA Framework-specific implementations of the CRA and knapsack problems
@@ -27,7 +27,7 @@ The actual problem/algorithm implementation is structured as follows:
   - `NOPDataStore` is a no-op implementation used during warmup
   - `PGDataStore` is backed by the (preconfigured) PostgreSQL database
 - The `termination` package houses the termination condition implementation of reaching a hypervolume steady-state/plateau
-- Utilities for serializing algorithm configurations as JSON are located in within the `util` package
+- Utilities for serializing algorithm configurations as JSON are located within the `util` package
 - The MOEA Framework-specific variable implementations for the EMF models as well as the IntArray representation can be found in the `variable` package 
 
 Finally, the `generator.KnapsackGenerator` class is a standalone application to generate knapsack problem instances as per Michalewicz and Arabas[^1].
