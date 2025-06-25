@@ -3,8 +3,21 @@
 - `data/` contains evaluation results in CSV/PDF format
 - `input/` contains EMF XMI files for all problem instances
 - `plot/` contains the published plots/diagrams and R scripts they were generated with
-- `src/` contains the Java source code for running the evaluation
-  - _TODO_
+- `src/main/java/` contains the Java source code for running the evaluation
+  - All source code is located within the `io.github.sekassel.moea` package
+  - `Main.java` is the entrypoint to the application and contains some general configuration values
+  - `Runner.java` and `Evaluation.java` are responsible for reading the XMI problem specifications and constructing and running the evolutionary algorithms as well as calculating the normalized hypervolume, respectively
+  - `generator/KnapsackGenerator.java` is a standalone application to generate knapsack problem instances
+  - `model/cra` and `model/knapsack` contain the EMF-generated sources for the EMF models
+  - The `operator` package is home to the implementations of the mutation operators for the CRA and knapsack models as well as the generic IntArray representation within their respective packages
+    - `RandomMutation.java` is the generic operator responsible for randomly selecting an applicable operator at runtime and measuring the `copy`, `match` and `mutate` durations
+  - `problem/cra` and `problem/knapsack` contain the MOEA-specific implementations of the respective optimization problems
+  - The `store` package contains the data store implementations
+    - `NOPDataStore.java` is a no-op implementation used during warmup
+    - `PGDataStore.java` is backed by the (preconfigured) PostgreSQL database
+  - `termination/SteadtState.java` implements the termination condition of reaching a hypervolume steady-state/plateau
+  - `util/ConfigUtil.java` is used to serialize algorithm configurations as JSON
+  - The `variable` package contains the MOEA-specific variable implementations for the EMF models as well as the IntArray representation
 - `compose.yaml` contains the database configuration for Docker
 - `query.sql` contains a collection of SQL query statements used to retrieve relevant data
 - `schema.sql` contains the database schema
