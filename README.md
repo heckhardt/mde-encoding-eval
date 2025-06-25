@@ -3,24 +3,38 @@
 - `data/` contains evaluation results in CSV/PDF format
 - `input/` contains EMF XMI files for all problem instances
 - `plot/` contains the published plots/diagrams and R scripts they were generated with
-- `src/main/java/` contains the Java source code for running the evaluation
-  - All source code is located within the `io.github.sekassel.moea` package
-  - `Main.java` is the entrypoint to the application and contains some general configuration values
-  - `Runner.java` and `Evaluation.java` are responsible for reading the XMI problem specifications and constructing and running the evolutionary algorithms as well as calculating the normalized hypervolume, respectively
-  - `generator/KnapsackGenerator.java` is a standalone application to generate knapsack problem instances
-  - `model/cra` and `model/knapsack` contain the EMF-generated sources for the EMF models
-  - The `operator` package is home to the implementations of the mutation operators for the CRA and knapsack models as well as the generic IntArray representation within their respective packages
-    - `RandomMutation.java` is the generic operator responsible for randomly selecting an applicable operator at runtime and measuring the `copy`, `match` and `mutate` durations
-  - `problem/cra` and `problem/knapsack` contain the MOEA-specific implementations of the respective optimization problems
-  - The `store` package contains the data store implementations
-    - `NOPDataStore.java` is a no-op implementation used during warmup
-    - `PGDataStore.java` is backed by the (preconfigured) PostgreSQL database
-  - `termination/SteadtState.java` implements the termination condition of reaching a hypervolume steady-state/plateau
-  - `util/ConfigUtil.java` is used to serialize algorithm configurations as JSON
-  - The `variable` package contains the MOEA-specific variable implementations for the EMF models as well as the IntArray representation
+- `src/main/java/` contains the Java source code for running the evaluation (see the collapsible section below for details)
 - `compose.yaml` contains the database configuration for Docker
 - `query.sql` contains a collection of SQL query statements used to retrieve relevant data
 - `schema.sql` contains the database schema
+
+<details>
+
+<summary>Source code structure</summary>
+
+All source code is located within the `io.github.sekassel.moea` package.
+At the top level, three important classes can be found:
+- `Main.java` is the entrypoint to the application and contains some general configuration values
+- `Runner.java` is responsible for reading the XMI problem specifications as well as constructing and running the evolutionary algorithms
+- `Evaluation.java` is responsible for calculating the normalized hypervolume after all algorithms have terminated
+ 
+- `model/cra` and `model/knapsack` contain the EMF-generated sources for the EMF models
+- The `operator` package is home to the implementations of the mutation operators for the CRA and knapsack models as well as the generic IntArray representation within their respective packages
+  - `RandomMutation.java` is the generic operator responsible for randomly selecting an applicable operator at runtime and measuring the `copy`, `match` and `mutate` durations
+- `problem/cra` and `problem/knapsack` contain the MOEA-specific implementations of the respective optimization problems
+- The `store` package contains the data store implementations
+  - `NOPDataStore.java` is a no-op implementation used during warmup
+  - `PGDataStore.java` is backed by the (preconfigured) PostgreSQL database
+- `termination/SteadtState.java` implements the termination condition of reaching a hypervolume steady-state/plateau
+- `util/ConfigUtil.java` is used to serialize algorithm configurations as JSON
+- The `variable` package contains the MOEA-specific variable implementations for the EMF models as well as the IntArray representation
+
+Finally, the `generator.KnapsackGenerator` class is a standalone application to generate knapsack problem instances as per Michalewicz and Arabas[^1].
+
+[^1]: Michalewicz, Z., Arabas, J. (1994). Genetic algorithms for the 0/1 knapsack problem. In: Raś, Z.W., Zemankova, M. (eds) Methodologies for Intelligent Systems. ISMIS 1994. Lecture Notes in Computer Science, vol 869. Springer, Berlin, Heidelberg. https://doi.org/10.1007/3-540-58495-1_14
+
+</details>
+
 
 # Running the evaluation
 
