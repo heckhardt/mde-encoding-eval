@@ -1,6 +1,7 @@
 # Repository Structure
 
 - `data/` contains evaluation results in CSV/PDF format
+- `images/` contains diagrams for the EMF models and mutation rules as well as the database schema
 - `input/` contains EMF XMI files for all problem instances
 - `plot/` contains the published plots/diagrams and R scripts they were generated with
 - `src/main/java/` contains the Java source code for running the evaluation (see the collapsible section below for details)
