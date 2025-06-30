@@ -16,7 +16,7 @@ select problem,
        substring(instance from length('TTC_InputRDG_') + 1 for 1) as model,
        representation,
        (configuration ->> 'populationSize')::integer              as population_size,
-       total / 1000000                                            as total
+       total / 1000000000                                         as total
 from run
          join duration on run.id = duration.run_id
 where problem = 'CRA'
@@ -33,7 +33,7 @@ ggplot(df, aes(x = model, y = total, fill = representation)) +
     outlier.size = 0.25,
     linewidth = 0.25
   ) +
-  labs(x = "Instance", y = "Total Duration (ms)", fill = "Representation") +
+  labs(x = "Instance", y = "Total Duration (s)", fill = "Representation") +
   theme_gray(base_size = 8) +
   theme(
     legend.position = "bottom",
