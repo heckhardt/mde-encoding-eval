@@ -1,6 +1,7 @@
 # Repository Structure
 
 - `data/` contains evaluation results in CSV/PDF format
+  - `data/raw/` contains raw stats for all runs
 - `images/` contains diagrams for the EMF models and mutation rules as well as the database schema
 - `input/` contains EMF XMI files for all problem instances
 - `plot/` contains the published plots/diagrams and R scripts they were generated with
