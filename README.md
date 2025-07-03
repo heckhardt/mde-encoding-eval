@@ -2040,6 +2040,8 @@ write.csv(result)
 </tbody>
 </table>
 
+The custom copy implementation is available on the `feat/knapsack/fast-copy` branch.
+
 <details>
 
 <summary>R script</summary>
