@@ -8,3 +8,4 @@ The files in this directory contain the aggregate results for various experiment
   `Ratio` means the ratio between the baseline and corresponding comparison values.
 - The `FastCopy` results contain the aggregate data for the additional experiments with a custom copy implementation regarding the total duration in milliseconds.
   `Ref`, `Cmp`, and `Ratio` again refer to the baseline and the newly collected results, as well as the ratio between them.
+- Raw, non-aggregated data for all setups is located within the `raw/` directory 
