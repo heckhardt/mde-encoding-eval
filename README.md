@@ -1681,7 +1681,7 @@ write.csv(result)
 
 <details>
 
-<summary>Duration</summary>
+<summary>Total Duration</summary>
 
 **Table 5:** Millisecond duration ratio between population sizes for the knapsack problem [ [CSV](data/PopSize_Dur.csv) | [PDF](data/PopSize_Dur.pdf) ]
 
@@ -1958,6 +1958,130 @@ result <- df %>%
   relocate(c(cmp_total_0.1, ratio_0.1), .after = ratio_0.2)
 
 write.csv(result)
+```
+
+</details>
+
+</details>
+
+
+## Custom Copy Implementation
+
+<details>
+
+<summary>Total Duration</summary>
+
+**Table 6:** Median total duration for the knapsack problem using the EcoreUtil-based vs. a custom copy implementation and resulting improvement [ [CSV](data/FastCopy_Dur.csv) | [PDF](data/FastCopy_Dur.pdf) ]
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">Instance</th>
+   <th style="text-align:right;">Ref</th>
+   <th style="text-align:right;">Cmp</th>
+   <th style="text-align:right;">Ratio</th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">A</td>
+   <td style="text-align:right;">54470.90</td>
+   <td style="text-align:right;">23653.09</td>
+   <td style="text-align:right;">0.434</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">B</td>
+   <td style="text-align:right;">218768.05</td>
+   <td style="text-align:right;">111201.01</td>
+   <td style="text-align:right;">0.508</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">C</td>
+   <td style="text-align:right;">440797.54</td>
+   <td style="text-align:right;">268865.77</td>
+   <td style="text-align:right;">0.610</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">D</td>
+   <td style="text-align:right;">69867.71</td>
+   <td style="text-align:right;">39429.32</td>
+   <td style="text-align:right;">0.564</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">E</td>
+   <td style="text-align:right;">236576.42</td>
+   <td style="text-align:right;">134867.21</td>
+   <td style="text-align:right;">0.570</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">F</td>
+   <td style="text-align:right;">617177.22</td>
+   <td style="text-align:right;">388436.76</td>
+   <td style="text-align:right;">0.629</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">G</td>
+   <td style="text-align:right;">78467.48</td>
+   <td style="text-align:right;">43898.11</td>
+   <td style="text-align:right;">0.559</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">H</td>
+   <td style="text-align:right;">354599.37</td>
+   <td style="text-align:right;">205978.15</td>
+   <td style="text-align:right;">0.581</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">I</td>
+   <td style="text-align:right;">832321.59</td>
+   <td style="text-align:right;">536869.02</td>
+   <td style="text-align:right;">0.645</td>
+  </tr>
+</tbody>
+</table>
+
+<details>
+
+<summary>R script</summary>
+
+```R
+library(RPostgres)
+
+con <- dbConnect(
+  RPostgres::Postgres(),
+  user = "postgres",
+  password = "postgres",
+  dbname = "postgres"
+)
+
+df <- dbGetQuery(
+  con,
+  "
+with duration as (select run_id, sum(step + should_terminate) / 1000000 as total from stats group by run_id),
+     median as (select problem,
+                       instance,
+                       representation,
+                       percentile_cont(0.5) within group ( order by total ) as total
+                from run
+                         join duration on run.id = duration.run_id
+                group by problem, instance, representation),
+     baseline as (select *
+                  from median
+                  where representation = 'Model')
+select substring(b.instance from length('Input_') + 1 for 1) as model,
+       b.total                                               as ref_total,
+       m.total                                               as cmp_total,
+       m.total / b.total                                     as ratio
+from baseline b
+         join median m on b.problem = m.problem and
+                          b.instance = m.instance
+where m.representation = 'Model.FastCopy'
+order by b.instance
+  "
+)
+
+dbDisconnect(con)
+write.csv(df)
 ```
 
 </details>
