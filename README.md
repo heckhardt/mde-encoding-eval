@@ -2182,3 +2182,87 @@ Every array element represents a feature, in the same order as in the table abov
 ![Example CRA output in low-level representation](images/CRA_ExampleOutput_IntArray.png)
 
 **Figure 2:** Example output for the CRA problem in the low-level representation.
+
+
+## Knapsack Problem
+
+Shown below is an example instance of the knapsack problem with three knapsacks and five items.
+
+**Table 8:** List of items for an example instance of the knapsack problem
+
+<table>
+<thead>
+  <tr>
+   <th style="text-align:left;">Index</th>
+   <th style="text-align:left;">Weights</th>
+   <th style="text-align:left;">Values</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">0</td>
+   <td style="text-align:left;">[ 37, 91, 99 ]</td>
+   <td style="text-align:left;">[ 60, 32, 80 ]</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">1</td>
+   <td style="text-align:left;">[ 79, 50, 39 ]</td>
+   <td style="text-align:left;">[ 23, 28, 57 ]</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">2</td>
+   <td style="text-align:left;">[ 62, 26, 49 ]</td>
+   <td style="text-align:left;">[ 78, 81, 49 ]</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">3</td>
+   <td style="text-align:left;">[ 41, 84, 13 ]</td>
+   <td style="text-align:left;">[ 20, 41, 41 ]</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">4</td>
+   <td style="text-align:left;">[ 43, 83, 95 ]</td>
+   <td style="text-align:left;">[ 93, 94, 49 ]</td>
+  </tr>
+</tbody>
+</table>
+
+
+**Table 9:** List of knapsacks for an example instance of the knapsack problem
+
+<table>
+<thead>
+  <tr>
+   <th style="text-align:left">Index</th>
+   <th style="text-align:right">Capacity</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">0</td>
+   <td style="text-align:right;">131</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">1</td>
+   <td style="text-align:right;">167</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">2</td>
+   <td style="text-align:right;">147</td>
+  </tr>
+</tbody>
+</table>
+
+A possible solution has items 0 and 1 assigned to knapsack 0, items 2 and 4 to knapsack 1 and item 3 to knapsack 2.
+An object diagram illustrates the high-level representation:
+
+![Example knapsack output in high-level representation](images/Knapsack_ExampleOutput_Model.png)
+
+**Figure 3:** Example output for the knapsack problem in the high-level representation.
+
+As with the CRA problem, the following figure illustrates the low-level representation.
+Again, every element represents an item, in the same order as in the table above.
+
+![Example knapsack output in low-level representation](images/Knapsack_ExampleOutput_IntArray.png)
+
+**Figure 4:** Example output for the knapsack problem in the low-level representation.
