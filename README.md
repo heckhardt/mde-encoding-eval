@@ -2088,3 +2088,181 @@ write.csv(df)
 </details>
 
 </details>
+
+
+# Illustrative Encoding Examples
+
+To illustrate the high- and low-level representations, below are example inputs and outputs/solutions for the CRA and Knapsack problem.
+
+## CRA Problem
+Shown below is an example input for the CRA problem consisting of five methods and four attributes with various dependencies between them[^2].
+
+[^2]: Fleck, M., Troya, J., & Wimmer, M. (2016). The Class Responsibility Assignment Case. TTC@STAF.
+
+**Table 7:** Feature list for an example input for the CRA problem [ [PDF](images/CRA_ExampleInput.pdf) ]
+
+<table>
+ <thead>
+  <tr>
+   <th style="text-align:left;">Feature Type</th>
+   <th style="text-align:left;">Feature Name</th>
+   <th style="text-align:left;">Functional Dependency</th>
+   <th style="text-align:left;">Data Dependency</th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">Method</td>
+   <td style="text-align:left;">addItem</td>
+   <td style="text-align:left;">-</td>
+   <td style="text-align:left;">items, name</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Method</td>
+   <td style="text-align:left;">cartTotal</td>
+   <td style="text-align:left;">itemTotal</td>
+   <td style="text-align:left;">items</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Method</td>
+   <td style="text-align:left;">checkout</td>
+   <td style="text-align:left;">cartTotal</td>
+   <td style="text-align:left;">items</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Method</td>
+   <td style="text-align:left;">print</td>
+   <td style="text-align:left;">-</td>
+   <td style="text-align:left;">name, price, quantity</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Method</td>
+   <td style="text-align:left;">itemTotal</td>
+   <td style="text-align:left;">-</td>
+   <td style="text-align:left;">price, quantity</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Attribute</td>
+   <td style="text-align:left;">items</td>
+   <td style="text-align:left;">n/a</td>
+   <td style="text-align:left;">n/a</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Attribute</td>
+   <td style="text-align:left;">name</td>
+   <td style="text-align:left;">n/a</td>
+   <td style="text-align:left;">n/a</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Attribute</td>
+   <td style="text-align:left;">price</td>
+   <td style="text-align:left;">n/a</td>
+   <td style="text-align:left;">n/a</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">Attribute</td>
+   <td style="text-align:left;">quantity</td>
+   <td style="text-align:left;">n/a</td>
+   <td style="text-align:left;">n/a</td>
+  </tr>
+</tbody>
+</table>
+
+
+A possible solution for this problem instance consists of two classes, one containing the cart-related and the other containing the item-related features.
+The high-level representation is illustrated as a class diagram below.
+
+![Example CRA output in high-level representation](images/CRA_ExampleOutput_Model.png)
+
+**Figure 1:** Example output for the CRA problem in the high-level representation.
+
+The low-level array representation for the same solution looks as follows, with `0` representing the `Cart` class and `1` representing the `Item` class.
+Every array element represents a feature, in the same order as in the table above.
+
+![Example CRA output in low-level representation](images/CRA_ExampleOutput_IntArray.png)
+
+**Figure 2:** Example output for the CRA problem in the low-level representation.
+
+
+## Knapsack Problem
+
+Shown below is an example instance of the knapsack problem with three knapsacks and five items.
+
+**Table 8:** List of items for an example instance of the knapsack problem
+
+<table>
+<thead>
+  <tr>
+   <th style="text-align:left;">Index</th>
+   <th style="text-align:left;">Weights</th>
+   <th style="text-align:left;">Values</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">0</td>
+   <td style="text-align:left;">[ 37, 91, 99 ]</td>
+   <td style="text-align:left;">[ 60, 32, 80 ]</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">1</td>
+   <td style="text-align:left;">[ 79, 50, 39 ]</td>
+   <td style="text-align:left;">[ 23, 28, 57 ]</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">2</td>
+   <td style="text-align:left;">[ 62, 26, 49 ]</td>
+   <td style="text-align:left;">[ 78, 81, 49 ]</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">3</td>
+   <td style="text-align:left;">[ 41, 84, 13 ]</td>
+   <td style="text-align:left;">[ 20, 41, 41 ]</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">4</td>
+   <td style="text-align:left;">[ 43, 83, 95 ]</td>
+   <td style="text-align:left;">[ 93, 94, 49 ]</td>
+  </tr>
+</tbody>
+</table>
+
+
+**Table 9:** List of knapsacks for an example instance of the knapsack problem
+
+<table>
+<thead>
+  <tr>
+   <th style="text-align:left">Index</th>
+   <th style="text-align:right">Capacity</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;">0</td>
+   <td style="text-align:right;">131</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">1</td>
+   <td style="text-align:right;">167</td>
+  </tr>
+  <tr>
+   <td style="text-align:left;">2</td>
+   <td style="text-align:right;">147</td>
+  </tr>
+</tbody>
+</table>
+
+A possible solution has items 0 and 1 assigned to knapsack 0, items 2 and 4 to knapsack 1 and item 3 to knapsack 2.
+An object diagram illustrates the high-level representation:
+
+![Example knapsack output in high-level representation](images/Knapsack_ExampleOutput_Model.png)
+
+**Figure 3:** Example output for the knapsack problem in the high-level representation.
+
+As with the CRA problem, the following figure illustrates the low-level representation.
+Again, every array element represents an item, in the same order as in the table above.
+
+![Example knapsack output in low-level representation](images/Knapsack_ExampleOutput_IntArray.png)
+
+**Figure 4:** Example output for the knapsack problem in the low-level representation.
