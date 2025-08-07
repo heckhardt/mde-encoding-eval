@@ -2261,7 +2261,7 @@ An object diagram illustrates the high-level representation:
 **Figure 3:** Example output for the knapsack problem in the high-level representation.
 
 As with the CRA problem, the following figure illustrates the low-level representation.
-Again, every element represents an item, in the same order as in the table above.
+Again, every array element represents an item, in the same order as in the table above.
 
 ![Example knapsack output in low-level representation](images/Knapsack_ExampleOutput_IntArray.png)
 
